@@ -1,23 +1,21 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "target": "es2022",
     "module": "node16",
-    "lib": ["ES2022", "DOM"],
+    "lib": ["ES2022"],
     "moduleResolution": "node16",
     "rootDir": ".",
     "outDir": "build",
-    "allowSyntheticDefaultImports": true,
-    "importHelpers": true,
-    "alwaysStrict": true,
-    "sourceMap": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitAny": false,
-    "noImplicitThis": false,
-    "strictNullChecks": false,
+    "baseUrl": ".",
+    "paths": {
+      "~seer-interfaces/*": ["./src/*"]
+    }
   },
-  "include": ["src", "__tests__"]
+  "references": [
+    {
+      "path": "./examples/validate-pet/tsconfig.json"
+    }
+  ],
+  "include": ["src"]
 }
