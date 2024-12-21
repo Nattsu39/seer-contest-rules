@@ -41,6 +41,10 @@ export interface PetSetRule extends RequiredMetadata {
   skillstone: SkillStoneRule; // 技能石
   excludeSkills: number[]; // 禁用的技能 ID
   excludeSkillEffects: number[]; // 禁用的技能效果 ID
+  preExtraValidator?(
+    this: PetSetRule,
+    petInfo: PetInfo,
+  ): PetSetValidationResult;
   postExtraValidator?(
     this: PetSetRule,
     petInfo: PetInfo,
