@@ -96,4 +96,4 @@ export interface PetInfo {
   isAdvanced: boolean
 }
 
-export type PetBag = (PetInfo & { position: number })[];
+export type BagPetInfo = (PetInfo & { position: number })[];
