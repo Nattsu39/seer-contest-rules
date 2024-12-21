@@ -92,6 +92,8 @@ export interface PetInfo {
   soulmarkID?: number;
   /**精灵抗性，不存在或未开启时为`undefined` */
   resistance?: ResistanceInfo;
+  /**精灵是否神谕*/
+  isAdvanced: boolean
 }
 
 export type PetBag = (PetInfo & { position: number })[];
