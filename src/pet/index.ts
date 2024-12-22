@@ -39,7 +39,7 @@ export interface AbilityMintmarkInfo extends BaseMintmarkInfo {
 export type MintmarkInfo = SkillMintmarkInfo | AbilityMintmarkInfo;
 
 export interface PetExtraAbility {
-  [key: string]: PetExtraAbilityValue;
+  [key: string]: PetExtraAbilityValue | undefined;
   extraHP?: PetExtraAbilityValue;
   teamTech?: PetExtraAbilityValue;
   annualVIP?: PetExtraAbilityValue;

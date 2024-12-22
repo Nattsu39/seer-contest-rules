@@ -1,10 +1,10 @@
-import {
+import type {
   MintmarkInfo,
   PetEffectInfo,
   PetInfo,
   PetExtraAbilityValue,
   PetAbilityValue,
-} from 'seer-interfaces/pet/pet-info-schema.js';
+} from 'seer-interfaces/pet/index.js';
 import {
   EffectFilterRule,
   EffectRule,
@@ -14,8 +14,8 @@ import {
   MintmarkSlot,
   PetSetRule,
   SemanticOption,
-} from 'seer-interfaces/rule-set/pet-set-rule.js';
-import { Item, ItemFilter } from 'seer-interfaces/general-schema/filter.js';
+} from 'seer-interfaces/rule-set/index.js';
+import { Item, ItemFilter } from 'seer-interfaces/general-schema/index.js';
 import {
   AbilityError,
   AllErrors,

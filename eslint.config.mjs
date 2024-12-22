@@ -16,7 +16,7 @@ export default tseslint.config(
   {
     extends: [...tseslint.configs.recommended],
 
-    files: ['**/*.ts', '**/*.mts'],
+    files: ['src/*.ts', 'src/*.d.ts', '**/*.mts'],
 
     plugins: {
       '@typescript-eslint': tseslint.plugin,

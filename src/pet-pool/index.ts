@@ -1,4 +1,4 @@
-import { Filter, IDRange } from '~seer-interfaces/general-schema/filter.js';
+import { Filter, IDRange } from "~seer-interfaces/general-schema/index.js";
 
 interface LimitRule {
   type: 'limit';

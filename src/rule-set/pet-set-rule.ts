@@ -1,6 +1,6 @@
-import { ItemFilter } from '../general-schema/filter.js';
-import { RequiredMetadata } from '../general-schema/metadata.js';
-import { PetAbilityValue, PetInfo } from '../pet/pet-info-schema.js';
+import { ItemFilter } from "~seer-interfaces/general-schema/index.js";
+import { RequiredMetadata } from "~seer-interfaces/general-schema/index.js";
+import { PetAbilityValue, PetInfo } from '../pet/index.js';
 import { PetSetValidationResult } from './validate-result-schema.js';
 
 export type SemanticOption = 'banned' | 'no-limit';

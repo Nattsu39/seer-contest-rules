@@ -1,4 +1,4 @@
-import { RequiredMetadata } from '~seer-interfaces/general-schema/metadata.js';
+import { RequiredMetadata } from "~seer-interfaces/general-schema/index.js";
 
 // 定义 ban/pick 的操作
 export interface BanPickAction {

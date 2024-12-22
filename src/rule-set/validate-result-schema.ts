@@ -1,4 +1,4 @@
-type ErrorTypeMark = string;
+export type ErrorTypeMark = string;
 
 export interface BaseValidationError {
   errorType: ErrorTypeMark;

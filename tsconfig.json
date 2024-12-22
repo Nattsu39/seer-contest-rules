@@ -1,21 +1,20 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "emitDeclarationOnly": true,
+    "removeComments": false,
+    "strict": true,
+    "sourceMap": false,
     "target": "es2022",
     "module": "node16",
     "lib": ["ES2022"],
     "moduleResolution": "node16",
-    "rootDir": ".",
+    "rootDir": "./src",
     "outDir": "build",
     "baseUrl": ".",
     "paths": {
       "~seer-interfaces/*": ["./src/*"]
     }
   },
-  "references": [
-    {
-      "path": "./examples/validate-pet/tsconfig.json"
-    }
-  ],
-  "include": ["src"]
+  "include": ["src"],
 }
