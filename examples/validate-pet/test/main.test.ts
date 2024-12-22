@@ -6,8 +6,8 @@ import {
   validateMintmarkConfiguration,
   validatePetEffect,
 } from '../index.js';
-import { MintmarkInfo } from 'seer-interfaces/pet/pet-info-schema.js';
-import { MintmarkDetailRule } from 'seer-interfaces/rule-set/pet-set-rule.js';
+import { MintmarkInfo } from 'seer-interfaces/pet/index.js';
+import { MintmarkDetailRule } from 'seer-interfaces/rule-set/index.js';
 
 describe('greeter function', () => {
   // Assert greeter result
