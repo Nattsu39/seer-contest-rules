@@ -72,6 +72,8 @@ export interface PetInfo {
   catchTime: number;
   /**精灵名称*/
   name: string;
+  /**精灵等级 */
+  lv: number;
   /**精灵个体值 */
   dv: number;
   /**精灵学习力 */
