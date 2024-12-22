@@ -79,7 +79,7 @@ export interface PetInfo {
   /**精灵学习力 */
   EVs: PetExtraAbilityValue;
   /**精灵特性*/
-  effect: null | PetEffectInfo;
+  effect?: PetEffectInfo;
   /**精灵额外数值*/
   extraAbility: PetExtraAbility;
   /**精灵携带的刻印，详见{@link MintmarkInfo}*/
