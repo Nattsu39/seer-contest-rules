@@ -84,6 +84,8 @@ export interface PetInfo {
   extraAbility: PetExtraAbility;
   /**精灵携带的刻印，详见{@link MintmarkInfo}*/
   mintmarks: MintmarkInfo[];
+  /**精灵携带的战斗道具 ID 数组（能量珠啥的）*/
+  effectItems: number[];
   /**精灵最终对战数值*/
   abilityValues: PetAbilityValueTotal;
   /**精灵技能 ID 数组（不包含第五技能），第五技能参见 {@link fifthSkill}*/
