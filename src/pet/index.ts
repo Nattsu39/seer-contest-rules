@@ -70,8 +70,6 @@ export interface PetInfo {
   petID: number;
   /**精灵内部唯一标识 */
   catchTime: number;
-  /**精灵名称*/
-  name: string;
   /**精灵等级 */
   lv: number;
   /**精灵个体值 */
@@ -100,4 +98,10 @@ export interface PetInfo {
   isAdvanced: boolean
 }
 
-export type BagPetInfo = (PetInfo & { position: number })[];
+export interface PetInBagInfo extends PetInfo {
+  /**精灵在背包中的位置，从 0 开始*/
+  position: number;
+}
+
+/**背包中的精灵列表 */
+export type PetBag = PetInBagInfo[];
