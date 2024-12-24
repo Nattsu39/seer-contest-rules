@@ -15,6 +15,7 @@ export type PetAbilityValueTotal = {
   pve: PetAbilityValue;
 };
 
+/**精灵特性信息 */
 export interface PetEffectInfo {
   id: number;
   level: 0 | 1 | 2 | 3 | 4 | 5;
@@ -25,11 +26,13 @@ interface BaseMintmarkInfo {
   id: number;
 }
 
+/**技能刻印信息 */
 export interface SkillMintmarkInfo extends BaseMintmarkInfo {
   type: 'skill';
   skillID: number;
 }
 
+/**能力刻印信息 */
 export interface AbilityMintmarkInfo extends BaseMintmarkInfo {
   type: 'ability';
   AbilityValues: PetExtraAbilityValue;
@@ -45,12 +48,15 @@ export interface PetExtraAbility {
   annualVIP?: PetExtraAbilityValue;
 }
 
+
+/**伤害抗性信息，其中的数值为实际数值，不需要换算 */
 export interface HurtResist {
   crit: number;
   regular: number;
   precent: number;
 }
 
+/**单项异常抗性，其中的{@link percent}数值为实际数值，不需要换算 */
 export interface StateResistItem {
   stateID: number;
   stateName?: string;
@@ -59,12 +65,14 @@ export interface StateResistItem {
 
 export type StateResist = [StateResistItem, StateResistItem, StateResistItem];
 
+/**抗性信息，其中的抗性百分比数值为实际数值，不需要换算 */
 export interface ResistanceInfo {
   hurt: HurtResist;
   ctl: StateResist;
   weak: StateResist;
 }
 
+/**精灵信息 */
 export interface PetInfo {
   /**精灵 ID */
   petID: number;
