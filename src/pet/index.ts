@@ -7,8 +7,6 @@ export interface PetAbilityValue {
   spd: number;
 }
 
-export type PetExtraAbilityValue = Partial<PetAbilityValue>;
-
 export type PetAbilityValueTotal = {
   base: PetAbilityValue;
   pvp: PetAbilityValue;
@@ -35,19 +33,27 @@ export interface SkillMintmarkInfo extends BaseMintmarkInfo {
 /**能力刻印信息 */
 export interface AbilityMintmarkInfo extends BaseMintmarkInfo {
   type: 'ability';
-  AbilityValues: PetExtraAbilityValue;
-  classID: number;
+  AbilityValues: PetAbilityValue;
+  classID?: number;
 }
 
 export type MintmarkInfo = SkillMintmarkInfo | AbilityMintmarkInfo;
 
-export interface PetExtraAbility {
-  [key: string]: PetExtraAbilityValue | undefined;
-  extraHP?: PetExtraAbilityValue;
-  teamTech?: PetExtraAbilityValue;
-  annualVIP?: PetExtraAbilityValue;
+export enum PetExtraAbilityType {
+  ExtraHP = 'extraHP',
+  TeamTech = 'teamTech',
+  AnnualVIP = 'annualVIP',
+  SuperNono = 'superNono',
+  Other = 'other',
 }
 
+export interface PetExtraAbilityItem {
+  type: PetExtraAbilityType;
+  values: PetAbilityValue;
+}
+
+/**精灵额外数值 */
+export type PetExtraAbility = PetExtraAbilityItem[];
 
 /**伤害抗性信息，其中的数值为实际数值，不需要换算 */
 export interface HurtResist {
@@ -83,7 +89,7 @@ export interface PetInfo {
   /**精灵个体值 */
   dv: number;
   /**精灵学习力 */
-  EVs: PetExtraAbilityValue;
+  EVs: PetAbilityValue;
   /**精灵特性*/
   effect?: PetEffectInfo;
   /**精灵额外数值*/

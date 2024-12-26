@@ -2,7 +2,6 @@ import type {
   MintmarkInfo,
   PetEffectInfo,
   PetInfo,
-  PetExtraAbilityValue,
   PetAbilityValue,
 } from 'seer-interfaces/pet/index.js';
 import {
@@ -133,16 +132,8 @@ export function validatePetEffect(
   return validate(rule);
 }
 
-function mergeAbilityValues<
-  T extends {
-    [k in keyof T]: k extends keyof PetAbilityValue
-      ? T[k] extends number
-        ? T[k]
-        : never
-      : never;
-  },
->(params: T[]): Record<keyof T, number> {
-  const result = {} as Record<keyof T, number>;
+function mergeAbilityValues(...params: PetAbilityValue[]): PetAbilityValue {
+  const result = {} as PetAbilityValue;
   for (const values of params) {
     for (const key in values) {
       result[key] = ((result[key] || 0) as number) + values[key];
@@ -152,8 +143,8 @@ function mergeAbilityValues<
 }
 
 export function validateAbilityValues(
-  pet: PetExtraAbilityValue,
-  rule: PetExtraAbilityValue,
+  pet: PetAbilityValue,
+  rule: PetAbilityValue,
 ): boolean {
   for (const key in pet) {
     if (!(pet[key] <= (rule[key] || Infinity))) {
@@ -249,7 +240,7 @@ export function petSetValidator(
 
   // 额外属性检查
   const mergedExtraAbility = mergeAbilityValues(
-    Object.values(petInfo.extraAbility),
+    ...petInfo.extraAbility.map((ability) => ability.values)
   );
   result.push(
     semanticOptionHandler(
