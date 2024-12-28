@@ -1,3 +1,7 @@
+import { MintmarkInfo } from "./mintmark.js";
+
+export * from './mintmark.js';
+
 export interface PetAbilityValue {
   hp: number;
   atk: number;
@@ -19,32 +23,12 @@ export interface PetEffectInfo {
   level: 0 | 1 | 2 | 3 | 4 | 5;
 }
 
-interface BaseMintmarkInfo {
-  type: string;
-  id: number;
-}
-
-/**技能刻印信息 */
-export interface SkillMintmarkInfo extends BaseMintmarkInfo {
-  type: 'skill';
-  skillID: number;
-}
-
-/**能力刻印信息 */
-export interface AbilityMintmarkInfo extends BaseMintmarkInfo {
-  type: 'ability';
-  AbilityValues: PetAbilityValue;
-  classID?: number;
-}
-
-export type MintmarkInfo = SkillMintmarkInfo | AbilityMintmarkInfo;
-
 export enum PetExtraAbilityType {
-  ExtraHP = 'extraHP',
-  TeamTech = 'teamTech',
-  AnnualVIP = 'annualVIP',
-  SuperNono = 'superNono',
-  Other = 'other',
+  EXTRA_HP = 'EXTRA_HP',
+  TEAM_TECH = 'TEAM_TECH',
+  ANNUAL_VIP = 'ANNUAL_VIP',
+  SUPER_NONO = 'SUPER_NONO',
+  UNSPECIFIED = 'UNSPECIFIED',
 }
 
 export interface PetExtraAbilityItem {
