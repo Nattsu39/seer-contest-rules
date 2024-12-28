@@ -1,6 +1,6 @@
 import { ItemFilter } from "~seer-interfaces/general-schema/index.js";
 import { RequiredMetadata } from "~seer-interfaces/general-schema/index.js";
-import { PetAbilityValue, PetInfo } from '../pet/index.js';
+import { PetAbilityValue, PetInfo, MintmarkType } from '../pet/index.js';
 import { PetSetValidationResult } from './validate-result-schema.js';
 
 export type SemanticOption = 'banned' | 'no-limit';
@@ -18,7 +18,7 @@ export type MintmarkSimpleRule = {
 
 export interface MintmarkSlot {
   // 可选的刻印需要同时符合两个 Filter 的规则
-  type: 'ability' | 'skill' | 'no-limit';
+  type: MintmarkType | 'no-limit';
   idFilter?: ItemFilter;
   classFilter?: ItemFilter;
 }
