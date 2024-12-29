@@ -48,7 +48,7 @@ export function validateMintmark(
   return (
     typeIsSame &&
     itemFilterValidator(mintmark.id, slotRule.idFilter) &&
-    (mintmark.type === 'ability'
+    (mintmark.type === 'UNIVERSAL'
       ? itemFilterValidator(mintmark.classID, slotRule.classFilter)
       : true)
   );
@@ -147,7 +147,7 @@ export function validateAbilityValues(
   rule: PetAbilityValue,
 ): boolean {
   for (const key in pet) {
-    if (!(pet[key] <= (rule[key] || Infinity))) {
+    if (pet[key] > rule[key]) {
       return false;
     }
   }
