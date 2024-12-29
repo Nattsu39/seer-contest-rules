@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package user.set;
+
+message UserSet {
+	repeated int32 equip = 1;
+	int32 achievement = 2;
+}
