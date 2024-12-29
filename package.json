@@ -3,11 +3,22 @@
   "version": "0.0.1",
   "description": "只是定义了一些赛尔号 TS 接口",
   "type": "module",
-  "main": "",
-  "types": "build/index.d.ts",
+  "module": "./build/index.js",
+  "types": "./build/index.d.ts",
   "engines": {
     "node": ">= 20.9"
   },
+  "exports": {
+    "./*": {
+      "types": "./build/*.d.ts",
+      "import": "./build/*"
+    },
+    "./proto": "./build/proto/index.js"
+  },
+  "files": [
+    "build",
+    "LICENSE"
+  ],
   "devDependencies": {
     "@eslint/js": "~9.10",
     "@types/eslint__js": "~8.42",
