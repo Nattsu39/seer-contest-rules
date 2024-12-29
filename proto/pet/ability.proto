@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package pet.ability;
+
+message PetAbilityValue {
+  int32 hp = 1;
+  int32 atk = 2;
+  int32 def = 3;
+  int32 spAtk = 4;
+  int32 spDef = 5;
+  int32 spd = 6;
+}
+
+message PetAbilityValueTotal {
+  PetAbilityValue base = 1;
+  PetAbilityValue pvp = 2;
+  PetAbilityValue pve = 3;
+}
+
+enum PetExtraAbilityType {
+  UNSPECIFIED = 0;
+  TEAM_TECH = 1;
+  ANNUAL_VIP = 2;
+  SUPER_NONO = 3;
+  EXTRA_HP = 4;
+}
+
+message PetExtraAbilityItem {
+  PetExtraAbilityType type = 1;
+  PetAbilityValue value = 2;
+}

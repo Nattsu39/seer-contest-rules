@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package pet.info;
+
+import "proto/pet/ability.proto";
+import "proto/pet/mintmark.proto";
+import "proto/pet/resist.proto";
+
+message PetEffectInfo {
+  int32 id = 1;
+  int32 level = 2;
+}
+
+message PetInfo {
+  int32 petID = 1;
+  int64 catchTime = 2;
+  int32 lv = 3;
+  int32 dv = 4;
+  pet.ability.PetAbilityValue EVs = 5;
+  PetEffectInfo effect = 6;
+  repeated pet.ability.PetExtraAbilityItem extraAbility = 7;
+  repeated pet.mintmark.MintmarkInfo mintmarks = 8;
+  repeated int32 effectItems = 9;
+  pet.ability.PetAbilityValueTotal abilityValues = 10;
+  repeated int32 skills = 11;
+  optional int32 fifthSkill = 12;
+  optional int32 soulmarkID = 13;
+  optional pet.resist.ResistanceInfo resistance = 14;
+  bool isAdvanced = 15;
+}

@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package pet.mintmark;
+
+import "proto/pet/ability.proto";
+
+enum MintmarkType {
+  UNSPECIFIED = 0;
+  SKILL = 1;
+  ABILITY = 2;
+  UNIVERSAL = 3;
+  QUANXIAO = 4;
+}
+
+message GemItem {
+  int32 category = 1;
+  int32 level = 2;
+}
+
+message SkillMintmarkInfo {
+  MintmarkType type = 1;
+  int32 id = 2;
+  int32 skillID = 3;
+}
+
+message AbilityMintmarkInfo {
+  MintmarkType type = 1;
+  int32 id = 2;
+  pet.ability.PetAbilityValue AbilityValues = 3;
+}
+
+message UniversalMintmarkInfo {
+  MintmarkType type = 1;
+  int32 id = 2;
+  pet.ability.PetAbilityValue AbilityValues = 3;
+  int32 classID = 4;
+  GemItem gem = 5;
+}
+
+message QuanxiaoMintmarkInfo {
+  MintmarkType type = 1;
+  int32 id = 2;
+  pet.ability.PetAbilityValue AbilityValues = 3;
+  int32 skillID = 4;
+}
+
+message MintmarkInfo {
+  oneof mintmark {
+    SkillMintmarkInfo skill = 1;
+    AbilityMintmarkInfo ability = 2;
+    UniversalMintmarkInfo universal = 3;
+    QuanxiaoMintmarkInfo quanxiao = 4;
+  };
+}

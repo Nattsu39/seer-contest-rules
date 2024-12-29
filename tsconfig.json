@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "emitDeclarationOnly": true,
+    // "emitDeclarationOnly": true,
     "removeComments": false,
     "strict": true,
     "sourceMap": false,
@@ -13,7 +13,8 @@
     "outDir": "build",
     "baseUrl": ".",
     "paths": {
-      "~seer-interfaces/*": ["./src/*"]
+      "~seer-interfaces/*": ["./src/*"],
+      "~proto-gen": ["./src/proto/*"]
     }
   },
   "include": ["src"],

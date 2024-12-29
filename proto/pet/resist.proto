@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package pet.resist;
+
+
+message HurtResist {
+  int32 crit = 1;
+  int32 regular = 2;
+  int32 precent = 3;
+}
+
+message StateResistItem {
+  int32 stateID = 1;
+  string stateName = 2;
+  int32 percent = 3;
+}
+
+message ResistanceInfo {
+  HurtResist hurt = 1;
+  repeated StateResistItem ctl = 2;
+  repeated StateResistItem weak = 3;
+}
