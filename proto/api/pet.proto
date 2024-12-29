@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package api;
+
+import "proto/pet/petinfo.proto";
+import "proto/user/user_set.proto";
+
+enum PetMessageTypeEnum {
+  UNSPECIFIED = 0;
+  OFFICIAL = 1;
+  CLASSIC = 2;
+  TEST = 3;
+  TAIWAN = 4;
+  CLASSIC_XIN = 10;
+}
+
+message PetMessage {
+  int32 version = 1;
+  PetMessageTypeEnum type = 2;
+  user.set.UserSet userSet = 3;
+  repeated pet.info.PetInfo petInfo = 9;
+}
+

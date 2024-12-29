@@ -15,4 +15,5 @@ plugins:
      - importSuffix=.js
      - fileSuffix=.pb
 inputs:
-  - proto_file: './proto/pet/petinfo.proto'
+    - proto_file: './proto/pet/petinfo.proto'
+    - proto_file: './proto/api/pet.proto'
