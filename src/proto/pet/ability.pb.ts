@@ -93,7 +93,7 @@ export interface PetAbilityValueTotal {
 
 export interface PetExtraAbilityItem {
   type: PetExtraAbilityType;
-  value: PetAbilityValue | undefined;
+  values: PetAbilityValue | undefined;
 }
 
 function createBasePetAbilityValue(): PetAbilityValue {
@@ -335,7 +335,7 @@ export const PetAbilityValueTotal: MessageFns<PetAbilityValueTotal> = {
 };
 
 function createBasePetExtraAbilityItem(): PetExtraAbilityItem {
-  return { type: PetExtraAbilityType.UNSPECIFIED, value: undefined };
+  return { type: PetExtraAbilityType.UNSPECIFIED, values: undefined };
 }
 
 export const PetExtraAbilityItem: MessageFns<PetExtraAbilityItem> = {
@@ -343,8 +343,8 @@ export const PetExtraAbilityItem: MessageFns<PetExtraAbilityItem> = {
     if (message.type !== PetExtraAbilityType.UNSPECIFIED) {
       writer.uint32(8).int32(petExtraAbilityTypeToNumber(message.type));
     }
-    if (message.value !== undefined) {
-      PetAbilityValue.encode(message.value, writer.uint32(18).fork()).join();
+    if (message.values !== undefined) {
+      PetAbilityValue.encode(message.values, writer.uint32(18).fork()).join();
     }
     return writer;
   },
@@ -369,7 +369,7 @@ export const PetExtraAbilityItem: MessageFns<PetExtraAbilityItem> = {
             break;
           }
 
-          message.value = PetAbilityValue.decode(reader, reader.uint32());
+          message.values = PetAbilityValue.decode(reader, reader.uint32());
           continue;
         }
       }
@@ -384,7 +384,7 @@ export const PetExtraAbilityItem: MessageFns<PetExtraAbilityItem> = {
   fromJSON(object: any): PetExtraAbilityItem {
     return {
       type: isSet(object.type) ? petExtraAbilityTypeFromJSON(object.type) : PetExtraAbilityType.UNSPECIFIED,
-      value: isSet(object.value) ? PetAbilityValue.fromJSON(object.value) : undefined,
+      values: isSet(object.values) ? PetAbilityValue.fromJSON(object.values) : undefined,
     };
   },
 
@@ -393,8 +393,8 @@ export const PetExtraAbilityItem: MessageFns<PetExtraAbilityItem> = {
     if (message.type !== PetExtraAbilityType.UNSPECIFIED) {
       obj.type = petExtraAbilityTypeToJSON(message.type);
     }
-    if (message.value !== undefined) {
-      obj.value = PetAbilityValue.toJSON(message.value);
+    if (message.values !== undefined) {
+      obj.values = PetAbilityValue.toJSON(message.values);
     }
     return obj;
   },
@@ -405,8 +405,8 @@ export const PetExtraAbilityItem: MessageFns<PetExtraAbilityItem> = {
   fromPartial<I extends Exact<DeepPartial<PetExtraAbilityItem>, I>>(object: I): PetExtraAbilityItem {
     const message = createBasePetExtraAbilityItem();
     message.type = object.type ?? PetExtraAbilityType.UNSPECIFIED;
-    message.value = (object.value !== undefined && object.value !== null)
-      ? PetAbilityValue.fromPartial(object.value)
+    message.values = (object.values !== undefined && object.values !== null)
+      ? PetAbilityValue.fromPartial(object.values)
       : undefined;
     return message;
   },

@@ -27,5 +27,5 @@ enum PetExtraAbilityType {
 
 message PetExtraAbilityItem {
   PetExtraAbilityType type = 1;
-  PetAbilityValue value = 2;
+  PetAbilityValue values = 2;
 }
