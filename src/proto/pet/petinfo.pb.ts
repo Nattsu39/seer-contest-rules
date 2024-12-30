@@ -6,39 +6,39 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { PetAbilityValue, PetAbilityValueTotal, PetExtraAbilityItem } from "./ability.pb.js";
-import { MintmarkInfo } from "./mintmark.pb.js";
-import { ResistanceInfo } from "./resist.pb.js";
+import { ProtoPetAbilityValue, ProtoPetAbilityValueTotal, ProtoPetExtraAbilityItem } from "./ability.pb.js";
+import { ProtoMintmarkInfo } from "./mintmark.pb.js";
+import { ProtoResistanceInfo } from "./resist.pb.js";
 
-export interface PetEffectInfo {
+export interface ProtoPetEffectInfo {
   id: number;
   level: number;
 }
 
-export interface PetInfo {
+export interface ProtoPetInfo {
   petID: number;
   catchTime: number;
   lv: number;
   dv: number;
-  EVs: PetAbilityValue | undefined;
-  effect: PetEffectInfo | undefined;
-  extraAbility: PetExtraAbilityItem[];
-  mintmarks: MintmarkInfo[];
+  EVs: ProtoPetAbilityValue | undefined;
+  effect: ProtoPetEffectInfo | undefined;
+  extraAbility: ProtoPetExtraAbilityItem[];
+  mintmarks: ProtoMintmarkInfo[];
   effectItems: number[];
-  abilityValues: PetAbilityValueTotal | undefined;
+  abilityValues: ProtoPetAbilityValueTotal | undefined;
   skills: number[];
   fifthSkill?: number | undefined;
   soulmarkID?: number | undefined;
-  resistance?: ResistanceInfo | undefined;
+  resistance?: ProtoResistanceInfo | undefined;
   isAdvanced: boolean;
 }
 
-function createBasePetEffectInfo(): PetEffectInfo {
+function createBaseProtoPetEffectInfo(): ProtoPetEffectInfo {
   return { id: 0, level: 0 };
 }
 
-export const PetEffectInfo: MessageFns<PetEffectInfo> = {
-  encode(message: PetEffectInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const ProtoPetEffectInfo: MessageFns<ProtoPetEffectInfo> = {
+  encode(message: ProtoPetEffectInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.id !== 0) {
       writer.uint32(8).int32(message.id);
     }
@@ -48,10 +48,10 @@ export const PetEffectInfo: MessageFns<PetEffectInfo> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): PetEffectInfo {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoPetEffectInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePetEffectInfo();
+    const message = createBaseProtoPetEffectInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -80,14 +80,14 @@ export const PetEffectInfo: MessageFns<PetEffectInfo> = {
     return message;
   },
 
-  fromJSON(object: any): PetEffectInfo {
+  fromJSON(object: any): ProtoPetEffectInfo {
     return {
       id: isSet(object.id) ? globalThis.Number(object.id) : 0,
       level: isSet(object.level) ? globalThis.Number(object.level) : 0,
     };
   },
 
-  toJSON(message: PetEffectInfo): unknown {
+  toJSON(message: ProtoPetEffectInfo): unknown {
     const obj: any = {};
     if (message.id !== 0) {
       obj.id = Math.round(message.id);
@@ -98,18 +98,18 @@ export const PetEffectInfo: MessageFns<PetEffectInfo> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<PetEffectInfo>, I>>(base?: I): PetEffectInfo {
-    return PetEffectInfo.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoPetEffectInfo>, I>>(base?: I): ProtoPetEffectInfo {
+    return ProtoPetEffectInfo.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<PetEffectInfo>, I>>(object: I): PetEffectInfo {
-    const message = createBasePetEffectInfo();
+  fromPartial<I extends Exact<DeepPartial<ProtoPetEffectInfo>, I>>(object: I): ProtoPetEffectInfo {
+    const message = createBaseProtoPetEffectInfo();
     message.id = object.id ?? 0;
     message.level = object.level ?? 0;
     return message;
   },
 };
 
-function createBasePetInfo(): PetInfo {
+function createBaseProtoPetInfo(): ProtoPetInfo {
   return {
     petID: 0,
     catchTime: 0,
@@ -129,8 +129,8 @@ function createBasePetInfo(): PetInfo {
   };
 }
 
-export const PetInfo: MessageFns<PetInfo> = {
-  encode(message: PetInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const ProtoPetInfo: MessageFns<ProtoPetInfo> = {
+  encode(message: ProtoPetInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.petID !== 0) {
       writer.uint32(8).int32(message.petID);
     }
@@ -144,16 +144,16 @@ export const PetInfo: MessageFns<PetInfo> = {
       writer.uint32(32).int32(message.dv);
     }
     if (message.EVs !== undefined) {
-      PetAbilityValue.encode(message.EVs, writer.uint32(42).fork()).join();
+      ProtoPetAbilityValue.encode(message.EVs, writer.uint32(42).fork()).join();
     }
     if (message.effect !== undefined) {
-      PetEffectInfo.encode(message.effect, writer.uint32(50).fork()).join();
+      ProtoPetEffectInfo.encode(message.effect, writer.uint32(50).fork()).join();
     }
     for (const v of message.extraAbility) {
-      PetExtraAbilityItem.encode(v!, writer.uint32(58).fork()).join();
+      ProtoPetExtraAbilityItem.encode(v!, writer.uint32(58).fork()).join();
     }
     for (const v of message.mintmarks) {
-      MintmarkInfo.encode(v!, writer.uint32(66).fork()).join();
+      ProtoMintmarkInfo.encode(v!, writer.uint32(66).fork()).join();
     }
     writer.uint32(74).fork();
     for (const v of message.effectItems) {
@@ -161,7 +161,7 @@ export const PetInfo: MessageFns<PetInfo> = {
     }
     writer.join();
     if (message.abilityValues !== undefined) {
-      PetAbilityValueTotal.encode(message.abilityValues, writer.uint32(82).fork()).join();
+      ProtoPetAbilityValueTotal.encode(message.abilityValues, writer.uint32(82).fork()).join();
     }
     writer.uint32(90).fork();
     for (const v of message.skills) {
@@ -175,7 +175,7 @@ export const PetInfo: MessageFns<PetInfo> = {
       writer.uint32(104).int32(message.soulmarkID);
     }
     if (message.resistance !== undefined) {
-      ResistanceInfo.encode(message.resistance, writer.uint32(114).fork()).join();
+      ProtoResistanceInfo.encode(message.resistance, writer.uint32(114).fork()).join();
     }
     if (message.isAdvanced !== false) {
       writer.uint32(120).bool(message.isAdvanced);
@@ -183,10 +183,10 @@ export const PetInfo: MessageFns<PetInfo> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): PetInfo {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoPetInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePetInfo();
+    const message = createBaseProtoPetInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -227,7 +227,7 @@ export const PetInfo: MessageFns<PetInfo> = {
             break;
           }
 
-          message.EVs = PetAbilityValue.decode(reader, reader.uint32());
+          message.EVs = ProtoPetAbilityValue.decode(reader, reader.uint32());
           continue;
         }
         case 6: {
@@ -235,7 +235,7 @@ export const PetInfo: MessageFns<PetInfo> = {
             break;
           }
 
-          message.effect = PetEffectInfo.decode(reader, reader.uint32());
+          message.effect = ProtoPetEffectInfo.decode(reader, reader.uint32());
           continue;
         }
         case 7: {
@@ -243,7 +243,7 @@ export const PetInfo: MessageFns<PetInfo> = {
             break;
           }
 
-          message.extraAbility.push(PetExtraAbilityItem.decode(reader, reader.uint32()));
+          message.extraAbility.push(ProtoPetExtraAbilityItem.decode(reader, reader.uint32()));
           continue;
         }
         case 8: {
@@ -251,7 +251,7 @@ export const PetInfo: MessageFns<PetInfo> = {
             break;
           }
 
-          message.mintmarks.push(MintmarkInfo.decode(reader, reader.uint32()));
+          message.mintmarks.push(ProtoMintmarkInfo.decode(reader, reader.uint32()));
           continue;
         }
         case 9: {
@@ -277,7 +277,7 @@ export const PetInfo: MessageFns<PetInfo> = {
             break;
           }
 
-          message.abilityValues = PetAbilityValueTotal.decode(reader, reader.uint32());
+          message.abilityValues = ProtoPetAbilityValueTotal.decode(reader, reader.uint32());
           continue;
         }
         case 11: {
@@ -319,7 +319,7 @@ export const PetInfo: MessageFns<PetInfo> = {
             break;
           }
 
-          message.resistance = ResistanceInfo.decode(reader, reader.uint32());
+          message.resistance = ProtoResistanceInfo.decode(reader, reader.uint32());
           continue;
         }
         case 15: {
@@ -339,33 +339,33 @@ export const PetInfo: MessageFns<PetInfo> = {
     return message;
   },
 
-  fromJSON(object: any): PetInfo {
+  fromJSON(object: any): ProtoPetInfo {
     return {
       petID: isSet(object.petID) ? globalThis.Number(object.petID) : 0,
       catchTime: isSet(object.catchTime) ? globalThis.Number(object.catchTime) : 0,
       lv: isSet(object.lv) ? globalThis.Number(object.lv) : 0,
       dv: isSet(object.dv) ? globalThis.Number(object.dv) : 0,
-      EVs: isSet(object.EVs) ? PetAbilityValue.fromJSON(object.EVs) : undefined,
-      effect: isSet(object.effect) ? PetEffectInfo.fromJSON(object.effect) : undefined,
+      EVs: isSet(object.EVs) ? ProtoPetAbilityValue.fromJSON(object.EVs) : undefined,
+      effect: isSet(object.effect) ? ProtoPetEffectInfo.fromJSON(object.effect) : undefined,
       extraAbility: globalThis.Array.isArray(object?.extraAbility)
-        ? object.extraAbility.map((e: any) => PetExtraAbilityItem.fromJSON(e))
+        ? object.extraAbility.map((e: any) => ProtoPetExtraAbilityItem.fromJSON(e))
         : [],
       mintmarks: globalThis.Array.isArray(object?.mintmarks)
-        ? object.mintmarks.map((e: any) => MintmarkInfo.fromJSON(e))
+        ? object.mintmarks.map((e: any) => ProtoMintmarkInfo.fromJSON(e))
         : [],
       effectItems: globalThis.Array.isArray(object?.effectItems)
         ? object.effectItems.map((e: any) => globalThis.Number(e))
         : [],
-      abilityValues: isSet(object.abilityValues) ? PetAbilityValueTotal.fromJSON(object.abilityValues) : undefined,
+      abilityValues: isSet(object.abilityValues) ? ProtoPetAbilityValueTotal.fromJSON(object.abilityValues) : undefined,
       skills: globalThis.Array.isArray(object?.skills) ? object.skills.map((e: any) => globalThis.Number(e)) : [],
       fifthSkill: isSet(object.fifthSkill) ? globalThis.Number(object.fifthSkill) : undefined,
       soulmarkID: isSet(object.soulmarkID) ? globalThis.Number(object.soulmarkID) : undefined,
-      resistance: isSet(object.resistance) ? ResistanceInfo.fromJSON(object.resistance) : undefined,
+      resistance: isSet(object.resistance) ? ProtoResistanceInfo.fromJSON(object.resistance) : undefined,
       isAdvanced: isSet(object.isAdvanced) ? globalThis.Boolean(object.isAdvanced) : false,
     };
   },
 
-  toJSON(message: PetInfo): unknown {
+  toJSON(message: ProtoPetInfo): unknown {
     const obj: any = {};
     if (message.petID !== 0) {
       obj.petID = Math.round(message.petID);
@@ -380,22 +380,22 @@ export const PetInfo: MessageFns<PetInfo> = {
       obj.dv = Math.round(message.dv);
     }
     if (message.EVs !== undefined) {
-      obj.EVs = PetAbilityValue.toJSON(message.EVs);
+      obj.EVs = ProtoPetAbilityValue.toJSON(message.EVs);
     }
     if (message.effect !== undefined) {
-      obj.effect = PetEffectInfo.toJSON(message.effect);
+      obj.effect = ProtoPetEffectInfo.toJSON(message.effect);
     }
     if (message.extraAbility?.length) {
-      obj.extraAbility = message.extraAbility.map((e) => PetExtraAbilityItem.toJSON(e));
+      obj.extraAbility = message.extraAbility.map((e) => ProtoPetExtraAbilityItem.toJSON(e));
     }
     if (message.mintmarks?.length) {
-      obj.mintmarks = message.mintmarks.map((e) => MintmarkInfo.toJSON(e));
+      obj.mintmarks = message.mintmarks.map((e) => ProtoMintmarkInfo.toJSON(e));
     }
     if (message.effectItems?.length) {
       obj.effectItems = message.effectItems.map((e) => Math.round(e));
     }
     if (message.abilityValues !== undefined) {
-      obj.abilityValues = PetAbilityValueTotal.toJSON(message.abilityValues);
+      obj.abilityValues = ProtoPetAbilityValueTotal.toJSON(message.abilityValues);
     }
     if (message.skills?.length) {
       obj.skills = message.skills.map((e) => Math.round(e));
@@ -407,7 +407,7 @@ export const PetInfo: MessageFns<PetInfo> = {
       obj.soulmarkID = Math.round(message.soulmarkID);
     }
     if (message.resistance !== undefined) {
-      obj.resistance = ResistanceInfo.toJSON(message.resistance);
+      obj.resistance = ProtoResistanceInfo.toJSON(message.resistance);
     }
     if (message.isAdvanced !== false) {
       obj.isAdvanced = message.isAdvanced;
@@ -415,32 +415,32 @@ export const PetInfo: MessageFns<PetInfo> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<PetInfo>, I>>(base?: I): PetInfo {
-    return PetInfo.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoPetInfo>, I>>(base?: I): ProtoPetInfo {
+    return ProtoPetInfo.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<PetInfo>, I>>(object: I): PetInfo {
-    const message = createBasePetInfo();
+  fromPartial<I extends Exact<DeepPartial<ProtoPetInfo>, I>>(object: I): ProtoPetInfo {
+    const message = createBaseProtoPetInfo();
     message.petID = object.petID ?? 0;
     message.catchTime = object.catchTime ?? 0;
     message.lv = object.lv ?? 0;
     message.dv = object.dv ?? 0;
     message.EVs = (object.EVs !== undefined && object.EVs !== null)
-      ? PetAbilityValue.fromPartial(object.EVs)
+      ? ProtoPetAbilityValue.fromPartial(object.EVs)
       : undefined;
     message.effect = (object.effect !== undefined && object.effect !== null)
-      ? PetEffectInfo.fromPartial(object.effect)
+      ? ProtoPetEffectInfo.fromPartial(object.effect)
       : undefined;
-    message.extraAbility = object.extraAbility?.map((e) => PetExtraAbilityItem.fromPartial(e)) || [];
-    message.mintmarks = object.mintmarks?.map((e) => MintmarkInfo.fromPartial(e)) || [];
+    message.extraAbility = object.extraAbility?.map((e) => ProtoPetExtraAbilityItem.fromPartial(e)) || [];
+    message.mintmarks = object.mintmarks?.map((e) => ProtoMintmarkInfo.fromPartial(e)) || [];
     message.effectItems = object.effectItems?.map((e) => e) || [];
     message.abilityValues = (object.abilityValues !== undefined && object.abilityValues !== null)
-      ? PetAbilityValueTotal.fromPartial(object.abilityValues)
+      ? ProtoPetAbilityValueTotal.fromPartial(object.abilityValues)
       : undefined;
     message.skills = object.skills?.map((e) => e) || [];
     message.fifthSkill = object.fifthSkill ?? undefined;
     message.soulmarkID = object.soulmarkID ?? undefined;
     message.resistance = (object.resistance !== undefined && object.resistance !== null)
-      ? ResistanceInfo.fromPartial(object.resistance)
+      ? ProtoResistanceInfo.fromPartial(object.resistance)
       : undefined;
     message.isAdvanced = object.isAdvanced ?? false;
     return message;

@@ -9,6 +9,7 @@ plugins:
     opt:
      - oneof=unions-value
      - removeEnumPrefix=true
+     - typePrefix=Proto
      - stringEnums=true
      - exportCommonSymbols=false
      - esModuleInterop=true

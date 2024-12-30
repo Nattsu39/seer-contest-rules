@@ -6,9 +6,9 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { PetAbilityValue } from "./ability.pb.js";
+import { ProtoPetAbilityValue } from "./ability.pb.js";
 
-export enum MintmarkType {
+export enum ProtoMintmarkType {
   UNSPECIFIED = "UNSPECIFIED",
   SKILL = "SKILL",
   ABILITY = "ABILITY",
@@ -17,117 +17,117 @@ export enum MintmarkType {
   UNRECOGNIZED = "UNRECOGNIZED",
 }
 
-export function mintmarkTypeFromJSON(object: any): MintmarkType {
+export function protoMintmarkTypeFromJSON(object: any): ProtoMintmarkType {
   switch (object) {
     case 0:
     case "UNSPECIFIED":
-      return MintmarkType.UNSPECIFIED;
+      return ProtoMintmarkType.UNSPECIFIED;
     case 1:
     case "SKILL":
-      return MintmarkType.SKILL;
+      return ProtoMintmarkType.SKILL;
     case 2:
     case "ABILITY":
-      return MintmarkType.ABILITY;
+      return ProtoMintmarkType.ABILITY;
     case 3:
     case "UNIVERSAL":
-      return MintmarkType.UNIVERSAL;
+      return ProtoMintmarkType.UNIVERSAL;
     case 4:
     case "QUANXIAO":
-      return MintmarkType.QUANXIAO;
+      return ProtoMintmarkType.QUANXIAO;
     case -1:
     case "UNRECOGNIZED":
     default:
-      return MintmarkType.UNRECOGNIZED;
+      return ProtoMintmarkType.UNRECOGNIZED;
   }
 }
 
-export function mintmarkTypeToJSON(object: MintmarkType): string {
+export function protoMintmarkTypeToJSON(object: ProtoMintmarkType): string {
   switch (object) {
-    case MintmarkType.UNSPECIFIED:
+    case ProtoMintmarkType.UNSPECIFIED:
       return "UNSPECIFIED";
-    case MintmarkType.SKILL:
+    case ProtoMintmarkType.SKILL:
       return "SKILL";
-    case MintmarkType.ABILITY:
+    case ProtoMintmarkType.ABILITY:
       return "ABILITY";
-    case MintmarkType.UNIVERSAL:
+    case ProtoMintmarkType.UNIVERSAL:
       return "UNIVERSAL";
-    case MintmarkType.QUANXIAO:
+    case ProtoMintmarkType.QUANXIAO:
       return "QUANXIAO";
-    case MintmarkType.UNRECOGNIZED:
+    case ProtoMintmarkType.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
 }
 
-export function mintmarkTypeToNumber(object: MintmarkType): number {
+export function protoMintmarkTypeToNumber(object: ProtoMintmarkType): number {
   switch (object) {
-    case MintmarkType.UNSPECIFIED:
+    case ProtoMintmarkType.UNSPECIFIED:
       return 0;
-    case MintmarkType.SKILL:
+    case ProtoMintmarkType.SKILL:
       return 1;
-    case MintmarkType.ABILITY:
+    case ProtoMintmarkType.ABILITY:
       return 2;
-    case MintmarkType.UNIVERSAL:
+    case ProtoMintmarkType.UNIVERSAL:
       return 3;
-    case MintmarkType.QUANXIAO:
+    case ProtoMintmarkType.QUANXIAO:
       return 4;
-    case MintmarkType.UNRECOGNIZED:
+    case ProtoMintmarkType.UNRECOGNIZED:
     default:
       return -1;
   }
 }
 
-export interface GemItem {
+export interface ProtoGemItem {
   category: number;
   level: number;
 }
 
-export interface SkillMintmarkInfo {
-  type: MintmarkType;
+export interface ProtoSkillMintmarkInfo {
+  type: ProtoMintmarkType;
   id: number;
   skillID: number;
 }
 
-export interface AbilityMintmarkInfo {
-  type: MintmarkType;
+export interface ProtoAbilityMintmarkInfo {
+  type: ProtoMintmarkType;
   id: number;
-  AbilityValues: PetAbilityValue | undefined;
+  AbilityValues: ProtoPetAbilityValue | undefined;
 }
 
-export interface UniversalMintmarkInfo {
-  type: MintmarkType;
+export interface ProtoUniversalMintmarkInfo {
+  type: ProtoMintmarkType;
   id: number;
-  AbilityValues: PetAbilityValue | undefined;
+  AbilityValues: ProtoPetAbilityValue | undefined;
   classID: number;
-  gem: GemItem | undefined;
+  gem: ProtoGemItem | undefined;
 }
 
-export interface QuanxiaoMintmarkInfo {
-  type: MintmarkType;
+export interface ProtoQuanxiaoMintmarkInfo {
+  type: ProtoMintmarkType;
   id: number;
-  AbilityValues: PetAbilityValue | undefined;
+  AbilityValues: ProtoPetAbilityValue | undefined;
   skillID: number;
 }
 
-export interface MintmarkInfo {
+export interface ProtoMintmarkInfo {
   mintmark?:
     | //
-    { $case: "skill"; value: SkillMintmarkInfo }
+    { $case: "skill"; value: ProtoSkillMintmarkInfo }
     | //
-    { $case: "ability"; value: AbilityMintmarkInfo }
+    { $case: "ability"; value: ProtoAbilityMintmarkInfo }
     | //
-    { $case: "universal"; value: UniversalMintmarkInfo }
+    { $case: "universal"; value: ProtoUniversalMintmarkInfo }
     | //
-    { $case: "quanxiao"; value: QuanxiaoMintmarkInfo }
+    { $case: "quanxiao"; value: ProtoQuanxiaoMintmarkInfo }
     | undefined;
 }
 
-function createBaseGemItem(): GemItem {
+function createBaseProtoGemItem(): ProtoGemItem {
   return { category: 0, level: 0 };
 }
 
-export const GemItem: MessageFns<GemItem> = {
-  encode(message: GemItem, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const ProtoGemItem: MessageFns<ProtoGemItem> = {
+  encode(message: ProtoGemItem, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.category !== 0) {
       writer.uint32(8).int32(message.category);
     }
@@ -137,10 +137,10 @@ export const GemItem: MessageFns<GemItem> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): GemItem {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoGemItem {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGemItem();
+    const message = createBaseProtoGemItem();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -169,14 +169,14 @@ export const GemItem: MessageFns<GemItem> = {
     return message;
   },
 
-  fromJSON(object: any): GemItem {
+  fromJSON(object: any): ProtoGemItem {
     return {
       category: isSet(object.category) ? globalThis.Number(object.category) : 0,
       level: isSet(object.level) ? globalThis.Number(object.level) : 0,
     };
   },
 
-  toJSON(message: GemItem): unknown {
+  toJSON(message: ProtoGemItem): unknown {
     const obj: any = {};
     if (message.category !== 0) {
       obj.category = Math.round(message.category);
@@ -187,25 +187,25 @@ export const GemItem: MessageFns<GemItem> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<GemItem>, I>>(base?: I): GemItem {
-    return GemItem.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoGemItem>, I>>(base?: I): ProtoGemItem {
+    return ProtoGemItem.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<GemItem>, I>>(object: I): GemItem {
-    const message = createBaseGemItem();
+  fromPartial<I extends Exact<DeepPartial<ProtoGemItem>, I>>(object: I): ProtoGemItem {
+    const message = createBaseProtoGemItem();
     message.category = object.category ?? 0;
     message.level = object.level ?? 0;
     return message;
   },
 };
 
-function createBaseSkillMintmarkInfo(): SkillMintmarkInfo {
-  return { type: MintmarkType.UNSPECIFIED, id: 0, skillID: 0 };
+function createBaseProtoSkillMintmarkInfo(): ProtoSkillMintmarkInfo {
+  return { type: ProtoMintmarkType.UNSPECIFIED, id: 0, skillID: 0 };
 }
 
-export const SkillMintmarkInfo: MessageFns<SkillMintmarkInfo> = {
-  encode(message: SkillMintmarkInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.type !== MintmarkType.UNSPECIFIED) {
-      writer.uint32(8).int32(mintmarkTypeToNumber(message.type));
+export const ProtoSkillMintmarkInfo: MessageFns<ProtoSkillMintmarkInfo> = {
+  encode(message: ProtoSkillMintmarkInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.type !== ProtoMintmarkType.UNSPECIFIED) {
+      writer.uint32(8).int32(protoMintmarkTypeToNumber(message.type));
     }
     if (message.id !== 0) {
       writer.uint32(16).int32(message.id);
@@ -216,10 +216,10 @@ export const SkillMintmarkInfo: MessageFns<SkillMintmarkInfo> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): SkillMintmarkInfo {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoSkillMintmarkInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseSkillMintmarkInfo();
+    const message = createBaseProtoSkillMintmarkInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -228,7 +228,7 @@ export const SkillMintmarkInfo: MessageFns<SkillMintmarkInfo> = {
             break;
           }
 
-          message.type = mintmarkTypeFromJSON(reader.int32());
+          message.type = protoMintmarkTypeFromJSON(reader.int32());
           continue;
         }
         case 2: {
@@ -256,18 +256,18 @@ export const SkillMintmarkInfo: MessageFns<SkillMintmarkInfo> = {
     return message;
   },
 
-  fromJSON(object: any): SkillMintmarkInfo {
+  fromJSON(object: any): ProtoSkillMintmarkInfo {
     return {
-      type: isSet(object.type) ? mintmarkTypeFromJSON(object.type) : MintmarkType.UNSPECIFIED,
+      type: isSet(object.type) ? protoMintmarkTypeFromJSON(object.type) : ProtoMintmarkType.UNSPECIFIED,
       id: isSet(object.id) ? globalThis.Number(object.id) : 0,
       skillID: isSet(object.skillID) ? globalThis.Number(object.skillID) : 0,
     };
   },
 
-  toJSON(message: SkillMintmarkInfo): unknown {
+  toJSON(message: ProtoSkillMintmarkInfo): unknown {
     const obj: any = {};
-    if (message.type !== MintmarkType.UNSPECIFIED) {
-      obj.type = mintmarkTypeToJSON(message.type);
+    if (message.type !== ProtoMintmarkType.UNSPECIFIED) {
+      obj.type = protoMintmarkTypeToJSON(message.type);
     }
     if (message.id !== 0) {
       obj.id = Math.round(message.id);
@@ -278,40 +278,40 @@ export const SkillMintmarkInfo: MessageFns<SkillMintmarkInfo> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<SkillMintmarkInfo>, I>>(base?: I): SkillMintmarkInfo {
-    return SkillMintmarkInfo.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoSkillMintmarkInfo>, I>>(base?: I): ProtoSkillMintmarkInfo {
+    return ProtoSkillMintmarkInfo.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<SkillMintmarkInfo>, I>>(object: I): SkillMintmarkInfo {
-    const message = createBaseSkillMintmarkInfo();
-    message.type = object.type ?? MintmarkType.UNSPECIFIED;
+  fromPartial<I extends Exact<DeepPartial<ProtoSkillMintmarkInfo>, I>>(object: I): ProtoSkillMintmarkInfo {
+    const message = createBaseProtoSkillMintmarkInfo();
+    message.type = object.type ?? ProtoMintmarkType.UNSPECIFIED;
     message.id = object.id ?? 0;
     message.skillID = object.skillID ?? 0;
     return message;
   },
 };
 
-function createBaseAbilityMintmarkInfo(): AbilityMintmarkInfo {
-  return { type: MintmarkType.UNSPECIFIED, id: 0, AbilityValues: undefined };
+function createBaseProtoAbilityMintmarkInfo(): ProtoAbilityMintmarkInfo {
+  return { type: ProtoMintmarkType.UNSPECIFIED, id: 0, AbilityValues: undefined };
 }
 
-export const AbilityMintmarkInfo: MessageFns<AbilityMintmarkInfo> = {
-  encode(message: AbilityMintmarkInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.type !== MintmarkType.UNSPECIFIED) {
-      writer.uint32(8).int32(mintmarkTypeToNumber(message.type));
+export const ProtoAbilityMintmarkInfo: MessageFns<ProtoAbilityMintmarkInfo> = {
+  encode(message: ProtoAbilityMintmarkInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.type !== ProtoMintmarkType.UNSPECIFIED) {
+      writer.uint32(8).int32(protoMintmarkTypeToNumber(message.type));
     }
     if (message.id !== 0) {
       writer.uint32(16).int32(message.id);
     }
     if (message.AbilityValues !== undefined) {
-      PetAbilityValue.encode(message.AbilityValues, writer.uint32(26).fork()).join();
+      ProtoPetAbilityValue.encode(message.AbilityValues, writer.uint32(26).fork()).join();
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): AbilityMintmarkInfo {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoAbilityMintmarkInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseAbilityMintmarkInfo();
+    const message = createBaseProtoAbilityMintmarkInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -320,7 +320,7 @@ export const AbilityMintmarkInfo: MessageFns<AbilityMintmarkInfo> = {
             break;
           }
 
-          message.type = mintmarkTypeFromJSON(reader.int32());
+          message.type = protoMintmarkTypeFromJSON(reader.int32());
           continue;
         }
         case 2: {
@@ -336,7 +336,7 @@ export const AbilityMintmarkInfo: MessageFns<AbilityMintmarkInfo> = {
             break;
           }
 
-          message.AbilityValues = PetAbilityValue.decode(reader, reader.uint32());
+          message.AbilityValues = ProtoPetAbilityValue.decode(reader, reader.uint32());
           continue;
         }
       }
@@ -348,70 +348,70 @@ export const AbilityMintmarkInfo: MessageFns<AbilityMintmarkInfo> = {
     return message;
   },
 
-  fromJSON(object: any): AbilityMintmarkInfo {
+  fromJSON(object: any): ProtoAbilityMintmarkInfo {
     return {
-      type: isSet(object.type) ? mintmarkTypeFromJSON(object.type) : MintmarkType.UNSPECIFIED,
+      type: isSet(object.type) ? protoMintmarkTypeFromJSON(object.type) : ProtoMintmarkType.UNSPECIFIED,
       id: isSet(object.id) ? globalThis.Number(object.id) : 0,
-      AbilityValues: isSet(object.AbilityValues) ? PetAbilityValue.fromJSON(object.AbilityValues) : undefined,
+      AbilityValues: isSet(object.AbilityValues) ? ProtoPetAbilityValue.fromJSON(object.AbilityValues) : undefined,
     };
   },
 
-  toJSON(message: AbilityMintmarkInfo): unknown {
+  toJSON(message: ProtoAbilityMintmarkInfo): unknown {
     const obj: any = {};
-    if (message.type !== MintmarkType.UNSPECIFIED) {
-      obj.type = mintmarkTypeToJSON(message.type);
+    if (message.type !== ProtoMintmarkType.UNSPECIFIED) {
+      obj.type = protoMintmarkTypeToJSON(message.type);
     }
     if (message.id !== 0) {
       obj.id = Math.round(message.id);
     }
     if (message.AbilityValues !== undefined) {
-      obj.AbilityValues = PetAbilityValue.toJSON(message.AbilityValues);
+      obj.AbilityValues = ProtoPetAbilityValue.toJSON(message.AbilityValues);
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<AbilityMintmarkInfo>, I>>(base?: I): AbilityMintmarkInfo {
-    return AbilityMintmarkInfo.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoAbilityMintmarkInfo>, I>>(base?: I): ProtoAbilityMintmarkInfo {
+    return ProtoAbilityMintmarkInfo.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<AbilityMintmarkInfo>, I>>(object: I): AbilityMintmarkInfo {
-    const message = createBaseAbilityMintmarkInfo();
-    message.type = object.type ?? MintmarkType.UNSPECIFIED;
+  fromPartial<I extends Exact<DeepPartial<ProtoAbilityMintmarkInfo>, I>>(object: I): ProtoAbilityMintmarkInfo {
+    const message = createBaseProtoAbilityMintmarkInfo();
+    message.type = object.type ?? ProtoMintmarkType.UNSPECIFIED;
     message.id = object.id ?? 0;
     message.AbilityValues = (object.AbilityValues !== undefined && object.AbilityValues !== null)
-      ? PetAbilityValue.fromPartial(object.AbilityValues)
+      ? ProtoPetAbilityValue.fromPartial(object.AbilityValues)
       : undefined;
     return message;
   },
 };
 
-function createBaseUniversalMintmarkInfo(): UniversalMintmarkInfo {
-  return { type: MintmarkType.UNSPECIFIED, id: 0, AbilityValues: undefined, classID: 0, gem: undefined };
+function createBaseProtoUniversalMintmarkInfo(): ProtoUniversalMintmarkInfo {
+  return { type: ProtoMintmarkType.UNSPECIFIED, id: 0, AbilityValues: undefined, classID: 0, gem: undefined };
 }
 
-export const UniversalMintmarkInfo: MessageFns<UniversalMintmarkInfo> = {
-  encode(message: UniversalMintmarkInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.type !== MintmarkType.UNSPECIFIED) {
-      writer.uint32(8).int32(mintmarkTypeToNumber(message.type));
+export const ProtoUniversalMintmarkInfo: MessageFns<ProtoUniversalMintmarkInfo> = {
+  encode(message: ProtoUniversalMintmarkInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.type !== ProtoMintmarkType.UNSPECIFIED) {
+      writer.uint32(8).int32(protoMintmarkTypeToNumber(message.type));
     }
     if (message.id !== 0) {
       writer.uint32(16).int32(message.id);
     }
     if (message.AbilityValues !== undefined) {
-      PetAbilityValue.encode(message.AbilityValues, writer.uint32(26).fork()).join();
+      ProtoPetAbilityValue.encode(message.AbilityValues, writer.uint32(26).fork()).join();
     }
     if (message.classID !== 0) {
       writer.uint32(32).int32(message.classID);
     }
     if (message.gem !== undefined) {
-      GemItem.encode(message.gem, writer.uint32(42).fork()).join();
+      ProtoGemItem.encode(message.gem, writer.uint32(42).fork()).join();
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): UniversalMintmarkInfo {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoUniversalMintmarkInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseUniversalMintmarkInfo();
+    const message = createBaseProtoUniversalMintmarkInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -420,7 +420,7 @@ export const UniversalMintmarkInfo: MessageFns<UniversalMintmarkInfo> = {
             break;
           }
 
-          message.type = mintmarkTypeFromJSON(reader.int32());
+          message.type = protoMintmarkTypeFromJSON(reader.int32());
           continue;
         }
         case 2: {
@@ -436,7 +436,7 @@ export const UniversalMintmarkInfo: MessageFns<UniversalMintmarkInfo> = {
             break;
           }
 
-          message.AbilityValues = PetAbilityValue.decode(reader, reader.uint32());
+          message.AbilityValues = ProtoPetAbilityValue.decode(reader, reader.uint32());
           continue;
         }
         case 4: {
@@ -452,7 +452,7 @@ export const UniversalMintmarkInfo: MessageFns<UniversalMintmarkInfo> = {
             break;
           }
 
-          message.gem = GemItem.decode(reader, reader.uint32());
+          message.gem = ProtoGemItem.decode(reader, reader.uint32());
           continue;
         }
       }
@@ -464,66 +464,66 @@ export const UniversalMintmarkInfo: MessageFns<UniversalMintmarkInfo> = {
     return message;
   },
 
-  fromJSON(object: any): UniversalMintmarkInfo {
+  fromJSON(object: any): ProtoUniversalMintmarkInfo {
     return {
-      type: isSet(object.type) ? mintmarkTypeFromJSON(object.type) : MintmarkType.UNSPECIFIED,
+      type: isSet(object.type) ? protoMintmarkTypeFromJSON(object.type) : ProtoMintmarkType.UNSPECIFIED,
       id: isSet(object.id) ? globalThis.Number(object.id) : 0,
-      AbilityValues: isSet(object.AbilityValues) ? PetAbilityValue.fromJSON(object.AbilityValues) : undefined,
+      AbilityValues: isSet(object.AbilityValues) ? ProtoPetAbilityValue.fromJSON(object.AbilityValues) : undefined,
       classID: isSet(object.classID) ? globalThis.Number(object.classID) : 0,
-      gem: isSet(object.gem) ? GemItem.fromJSON(object.gem) : undefined,
+      gem: isSet(object.gem) ? ProtoGemItem.fromJSON(object.gem) : undefined,
     };
   },
 
-  toJSON(message: UniversalMintmarkInfo): unknown {
+  toJSON(message: ProtoUniversalMintmarkInfo): unknown {
     const obj: any = {};
-    if (message.type !== MintmarkType.UNSPECIFIED) {
-      obj.type = mintmarkTypeToJSON(message.type);
+    if (message.type !== ProtoMintmarkType.UNSPECIFIED) {
+      obj.type = protoMintmarkTypeToJSON(message.type);
     }
     if (message.id !== 0) {
       obj.id = Math.round(message.id);
     }
     if (message.AbilityValues !== undefined) {
-      obj.AbilityValues = PetAbilityValue.toJSON(message.AbilityValues);
+      obj.AbilityValues = ProtoPetAbilityValue.toJSON(message.AbilityValues);
     }
     if (message.classID !== 0) {
       obj.classID = Math.round(message.classID);
     }
     if (message.gem !== undefined) {
-      obj.gem = GemItem.toJSON(message.gem);
+      obj.gem = ProtoGemItem.toJSON(message.gem);
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<UniversalMintmarkInfo>, I>>(base?: I): UniversalMintmarkInfo {
-    return UniversalMintmarkInfo.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoUniversalMintmarkInfo>, I>>(base?: I): ProtoUniversalMintmarkInfo {
+    return ProtoUniversalMintmarkInfo.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<UniversalMintmarkInfo>, I>>(object: I): UniversalMintmarkInfo {
-    const message = createBaseUniversalMintmarkInfo();
-    message.type = object.type ?? MintmarkType.UNSPECIFIED;
+  fromPartial<I extends Exact<DeepPartial<ProtoUniversalMintmarkInfo>, I>>(object: I): ProtoUniversalMintmarkInfo {
+    const message = createBaseProtoUniversalMintmarkInfo();
+    message.type = object.type ?? ProtoMintmarkType.UNSPECIFIED;
     message.id = object.id ?? 0;
     message.AbilityValues = (object.AbilityValues !== undefined && object.AbilityValues !== null)
-      ? PetAbilityValue.fromPartial(object.AbilityValues)
+      ? ProtoPetAbilityValue.fromPartial(object.AbilityValues)
       : undefined;
     message.classID = object.classID ?? 0;
-    message.gem = (object.gem !== undefined && object.gem !== null) ? GemItem.fromPartial(object.gem) : undefined;
+    message.gem = (object.gem !== undefined && object.gem !== null) ? ProtoGemItem.fromPartial(object.gem) : undefined;
     return message;
   },
 };
 
-function createBaseQuanxiaoMintmarkInfo(): QuanxiaoMintmarkInfo {
-  return { type: MintmarkType.UNSPECIFIED, id: 0, AbilityValues: undefined, skillID: 0 };
+function createBaseProtoQuanxiaoMintmarkInfo(): ProtoQuanxiaoMintmarkInfo {
+  return { type: ProtoMintmarkType.UNSPECIFIED, id: 0, AbilityValues: undefined, skillID: 0 };
 }
 
-export const QuanxiaoMintmarkInfo: MessageFns<QuanxiaoMintmarkInfo> = {
-  encode(message: QuanxiaoMintmarkInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.type !== MintmarkType.UNSPECIFIED) {
-      writer.uint32(8).int32(mintmarkTypeToNumber(message.type));
+export const ProtoQuanxiaoMintmarkInfo: MessageFns<ProtoQuanxiaoMintmarkInfo> = {
+  encode(message: ProtoQuanxiaoMintmarkInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.type !== ProtoMintmarkType.UNSPECIFIED) {
+      writer.uint32(8).int32(protoMintmarkTypeToNumber(message.type));
     }
     if (message.id !== 0) {
       writer.uint32(16).int32(message.id);
     }
     if (message.AbilityValues !== undefined) {
-      PetAbilityValue.encode(message.AbilityValues, writer.uint32(26).fork()).join();
+      ProtoPetAbilityValue.encode(message.AbilityValues, writer.uint32(26).fork()).join();
     }
     if (message.skillID !== 0) {
       writer.uint32(32).int32(message.skillID);
@@ -531,10 +531,10 @@ export const QuanxiaoMintmarkInfo: MessageFns<QuanxiaoMintmarkInfo> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): QuanxiaoMintmarkInfo {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoQuanxiaoMintmarkInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQuanxiaoMintmarkInfo();
+    const message = createBaseProtoQuanxiaoMintmarkInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -543,7 +543,7 @@ export const QuanxiaoMintmarkInfo: MessageFns<QuanxiaoMintmarkInfo> = {
             break;
           }
 
-          message.type = mintmarkTypeFromJSON(reader.int32());
+          message.type = protoMintmarkTypeFromJSON(reader.int32());
           continue;
         }
         case 2: {
@@ -559,7 +559,7 @@ export const QuanxiaoMintmarkInfo: MessageFns<QuanxiaoMintmarkInfo> = {
             break;
           }
 
-          message.AbilityValues = PetAbilityValue.decode(reader, reader.uint32());
+          message.AbilityValues = ProtoPetAbilityValue.decode(reader, reader.uint32());
           continue;
         }
         case 4: {
@@ -579,25 +579,25 @@ export const QuanxiaoMintmarkInfo: MessageFns<QuanxiaoMintmarkInfo> = {
     return message;
   },
 
-  fromJSON(object: any): QuanxiaoMintmarkInfo {
+  fromJSON(object: any): ProtoQuanxiaoMintmarkInfo {
     return {
-      type: isSet(object.type) ? mintmarkTypeFromJSON(object.type) : MintmarkType.UNSPECIFIED,
+      type: isSet(object.type) ? protoMintmarkTypeFromJSON(object.type) : ProtoMintmarkType.UNSPECIFIED,
       id: isSet(object.id) ? globalThis.Number(object.id) : 0,
-      AbilityValues: isSet(object.AbilityValues) ? PetAbilityValue.fromJSON(object.AbilityValues) : undefined,
+      AbilityValues: isSet(object.AbilityValues) ? ProtoPetAbilityValue.fromJSON(object.AbilityValues) : undefined,
       skillID: isSet(object.skillID) ? globalThis.Number(object.skillID) : 0,
     };
   },
 
-  toJSON(message: QuanxiaoMintmarkInfo): unknown {
+  toJSON(message: ProtoQuanxiaoMintmarkInfo): unknown {
     const obj: any = {};
-    if (message.type !== MintmarkType.UNSPECIFIED) {
-      obj.type = mintmarkTypeToJSON(message.type);
+    if (message.type !== ProtoMintmarkType.UNSPECIFIED) {
+      obj.type = protoMintmarkTypeToJSON(message.type);
     }
     if (message.id !== 0) {
       obj.id = Math.round(message.id);
     }
     if (message.AbilityValues !== undefined) {
-      obj.AbilityValues = PetAbilityValue.toJSON(message.AbilityValues);
+      obj.AbilityValues = ProtoPetAbilityValue.toJSON(message.AbilityValues);
     }
     if (message.skillID !== 0) {
       obj.skillID = Math.round(message.skillID);
@@ -605,48 +605,48 @@ export const QuanxiaoMintmarkInfo: MessageFns<QuanxiaoMintmarkInfo> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<QuanxiaoMintmarkInfo>, I>>(base?: I): QuanxiaoMintmarkInfo {
-    return QuanxiaoMintmarkInfo.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoQuanxiaoMintmarkInfo>, I>>(base?: I): ProtoQuanxiaoMintmarkInfo {
+    return ProtoQuanxiaoMintmarkInfo.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<QuanxiaoMintmarkInfo>, I>>(object: I): QuanxiaoMintmarkInfo {
-    const message = createBaseQuanxiaoMintmarkInfo();
-    message.type = object.type ?? MintmarkType.UNSPECIFIED;
+  fromPartial<I extends Exact<DeepPartial<ProtoQuanxiaoMintmarkInfo>, I>>(object: I): ProtoQuanxiaoMintmarkInfo {
+    const message = createBaseProtoQuanxiaoMintmarkInfo();
+    message.type = object.type ?? ProtoMintmarkType.UNSPECIFIED;
     message.id = object.id ?? 0;
     message.AbilityValues = (object.AbilityValues !== undefined && object.AbilityValues !== null)
-      ? PetAbilityValue.fromPartial(object.AbilityValues)
+      ? ProtoPetAbilityValue.fromPartial(object.AbilityValues)
       : undefined;
     message.skillID = object.skillID ?? 0;
     return message;
   },
 };
 
-function createBaseMintmarkInfo(): MintmarkInfo {
+function createBaseProtoMintmarkInfo(): ProtoMintmarkInfo {
   return { mintmark: undefined };
 }
 
-export const MintmarkInfo: MessageFns<MintmarkInfo> = {
-  encode(message: MintmarkInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const ProtoMintmarkInfo: MessageFns<ProtoMintmarkInfo> = {
+  encode(message: ProtoMintmarkInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     switch (message.mintmark?.$case) {
       case "skill":
-        SkillMintmarkInfo.encode(message.mintmark.value, writer.uint32(10).fork()).join();
+        ProtoSkillMintmarkInfo.encode(message.mintmark.value, writer.uint32(10).fork()).join();
         break;
       case "ability":
-        AbilityMintmarkInfo.encode(message.mintmark.value, writer.uint32(18).fork()).join();
+        ProtoAbilityMintmarkInfo.encode(message.mintmark.value, writer.uint32(18).fork()).join();
         break;
       case "universal":
-        UniversalMintmarkInfo.encode(message.mintmark.value, writer.uint32(26).fork()).join();
+        ProtoUniversalMintmarkInfo.encode(message.mintmark.value, writer.uint32(26).fork()).join();
         break;
       case "quanxiao":
-        QuanxiaoMintmarkInfo.encode(message.mintmark.value, writer.uint32(34).fork()).join();
+        ProtoQuanxiaoMintmarkInfo.encode(message.mintmark.value, writer.uint32(34).fork()).join();
         break;
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): MintmarkInfo {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoMintmarkInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMintmarkInfo();
+    const message = createBaseProtoMintmarkInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -655,7 +655,7 @@ export const MintmarkInfo: MessageFns<MintmarkInfo> = {
             break;
           }
 
-          message.mintmark = { $case: "skill", value: SkillMintmarkInfo.decode(reader, reader.uint32()) };
+          message.mintmark = { $case: "skill", value: ProtoSkillMintmarkInfo.decode(reader, reader.uint32()) };
           continue;
         }
         case 2: {
@@ -663,7 +663,7 @@ export const MintmarkInfo: MessageFns<MintmarkInfo> = {
             break;
           }
 
-          message.mintmark = { $case: "ability", value: AbilityMintmarkInfo.decode(reader, reader.uint32()) };
+          message.mintmark = { $case: "ability", value: ProtoAbilityMintmarkInfo.decode(reader, reader.uint32()) };
           continue;
         }
         case 3: {
@@ -671,7 +671,7 @@ export const MintmarkInfo: MessageFns<MintmarkInfo> = {
             break;
           }
 
-          message.mintmark = { $case: "universal", value: UniversalMintmarkInfo.decode(reader, reader.uint32()) };
+          message.mintmark = { $case: "universal", value: ProtoUniversalMintmarkInfo.decode(reader, reader.uint32()) };
           continue;
         }
         case 4: {
@@ -679,7 +679,7 @@ export const MintmarkInfo: MessageFns<MintmarkInfo> = {
             break;
           }
 
-          message.mintmark = { $case: "quanxiao", value: QuanxiaoMintmarkInfo.decode(reader, reader.uint32()) };
+          message.mintmark = { $case: "quanxiao", value: ProtoQuanxiaoMintmarkInfo.decode(reader, reader.uint32()) };
           continue;
         }
       }
@@ -691,59 +691,59 @@ export const MintmarkInfo: MessageFns<MintmarkInfo> = {
     return message;
   },
 
-  fromJSON(object: any): MintmarkInfo {
+  fromJSON(object: any): ProtoMintmarkInfo {
     return {
       mintmark: isSet(object.skill)
-        ? { $case: "skill", value: SkillMintmarkInfo.fromJSON(object.skill) }
+        ? { $case: "skill", value: ProtoSkillMintmarkInfo.fromJSON(object.skill) }
         : isSet(object.ability)
-        ? { $case: "ability", value: AbilityMintmarkInfo.fromJSON(object.ability) }
+        ? { $case: "ability", value: ProtoAbilityMintmarkInfo.fromJSON(object.ability) }
         : isSet(object.universal)
-        ? { $case: "universal", value: UniversalMintmarkInfo.fromJSON(object.universal) }
+        ? { $case: "universal", value: ProtoUniversalMintmarkInfo.fromJSON(object.universal) }
         : isSet(object.quanxiao)
-        ? { $case: "quanxiao", value: QuanxiaoMintmarkInfo.fromJSON(object.quanxiao) }
+        ? { $case: "quanxiao", value: ProtoQuanxiaoMintmarkInfo.fromJSON(object.quanxiao) }
         : undefined,
     };
   },
 
-  toJSON(message: MintmarkInfo): unknown {
+  toJSON(message: ProtoMintmarkInfo): unknown {
     const obj: any = {};
     if (message.mintmark?.$case === "skill") {
-      obj.skill = SkillMintmarkInfo.toJSON(message.mintmark.value);
+      obj.skill = ProtoSkillMintmarkInfo.toJSON(message.mintmark.value);
     }
     if (message.mintmark?.$case === "ability") {
-      obj.ability = AbilityMintmarkInfo.toJSON(message.mintmark.value);
+      obj.ability = ProtoAbilityMintmarkInfo.toJSON(message.mintmark.value);
     }
     if (message.mintmark?.$case === "universal") {
-      obj.universal = UniversalMintmarkInfo.toJSON(message.mintmark.value);
+      obj.universal = ProtoUniversalMintmarkInfo.toJSON(message.mintmark.value);
     }
     if (message.mintmark?.$case === "quanxiao") {
-      obj.quanxiao = QuanxiaoMintmarkInfo.toJSON(message.mintmark.value);
+      obj.quanxiao = ProtoQuanxiaoMintmarkInfo.toJSON(message.mintmark.value);
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<MintmarkInfo>, I>>(base?: I): MintmarkInfo {
-    return MintmarkInfo.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoMintmarkInfo>, I>>(base?: I): ProtoMintmarkInfo {
+    return ProtoMintmarkInfo.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<MintmarkInfo>, I>>(object: I): MintmarkInfo {
-    const message = createBaseMintmarkInfo();
+  fromPartial<I extends Exact<DeepPartial<ProtoMintmarkInfo>, I>>(object: I): ProtoMintmarkInfo {
+    const message = createBaseProtoMintmarkInfo();
     if (object.mintmark?.$case === "skill" && object.mintmark?.value !== undefined && object.mintmark?.value !== null) {
-      message.mintmark = { $case: "skill", value: SkillMintmarkInfo.fromPartial(object.mintmark.value) };
+      message.mintmark = { $case: "skill", value: ProtoSkillMintmarkInfo.fromPartial(object.mintmark.value) };
     }
     if (
       object.mintmark?.$case === "ability" && object.mintmark?.value !== undefined && object.mintmark?.value !== null
     ) {
-      message.mintmark = { $case: "ability", value: AbilityMintmarkInfo.fromPartial(object.mintmark.value) };
+      message.mintmark = { $case: "ability", value: ProtoAbilityMintmarkInfo.fromPartial(object.mintmark.value) };
     }
     if (
       object.mintmark?.$case === "universal" && object.mintmark?.value !== undefined && object.mintmark?.value !== null
     ) {
-      message.mintmark = { $case: "universal", value: UniversalMintmarkInfo.fromPartial(object.mintmark.value) };
+      message.mintmark = { $case: "universal", value: ProtoUniversalMintmarkInfo.fromPartial(object.mintmark.value) };
     }
     if (
       object.mintmark?.$case === "quanxiao" && object.mintmark?.value !== undefined && object.mintmark?.value !== null
     ) {
-      message.mintmark = { $case: "quanxiao", value: QuanxiaoMintmarkInfo.fromPartial(object.mintmark.value) };
+      message.mintmark = { $case: "quanxiao", value: ProtoQuanxiaoMintmarkInfo.fromPartial(object.mintmark.value) };
     }
     return message;
   },

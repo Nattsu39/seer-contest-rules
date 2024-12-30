@@ -7,7 +7,7 @@
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 
-export enum PetExtraAbilityType {
+export enum ProtoPetExtraAbilityType {
   UNSPECIFIED = "UNSPECIFIED",
   TEAM_TECH = "TEAM_TECH",
   ANNUAL_VIP = "ANNUAL_VIP",
@@ -16,67 +16,67 @@ export enum PetExtraAbilityType {
   UNRECOGNIZED = "UNRECOGNIZED",
 }
 
-export function petExtraAbilityTypeFromJSON(object: any): PetExtraAbilityType {
+export function protoPetExtraAbilityTypeFromJSON(object: any): ProtoPetExtraAbilityType {
   switch (object) {
     case 0:
     case "UNSPECIFIED":
-      return PetExtraAbilityType.UNSPECIFIED;
+      return ProtoPetExtraAbilityType.UNSPECIFIED;
     case 1:
     case "TEAM_TECH":
-      return PetExtraAbilityType.TEAM_TECH;
+      return ProtoPetExtraAbilityType.TEAM_TECH;
     case 2:
     case "ANNUAL_VIP":
-      return PetExtraAbilityType.ANNUAL_VIP;
+      return ProtoPetExtraAbilityType.ANNUAL_VIP;
     case 3:
     case "SUPER_NONO":
-      return PetExtraAbilityType.SUPER_NONO;
+      return ProtoPetExtraAbilityType.SUPER_NONO;
     case 4:
     case "EXTRA_HP":
-      return PetExtraAbilityType.EXTRA_HP;
+      return ProtoPetExtraAbilityType.EXTRA_HP;
     case -1:
     case "UNRECOGNIZED":
     default:
-      return PetExtraAbilityType.UNRECOGNIZED;
+      return ProtoPetExtraAbilityType.UNRECOGNIZED;
   }
 }
 
-export function petExtraAbilityTypeToJSON(object: PetExtraAbilityType): string {
+export function protoPetExtraAbilityTypeToJSON(object: ProtoPetExtraAbilityType): string {
   switch (object) {
-    case PetExtraAbilityType.UNSPECIFIED:
+    case ProtoPetExtraAbilityType.UNSPECIFIED:
       return "UNSPECIFIED";
-    case PetExtraAbilityType.TEAM_TECH:
+    case ProtoPetExtraAbilityType.TEAM_TECH:
       return "TEAM_TECH";
-    case PetExtraAbilityType.ANNUAL_VIP:
+    case ProtoPetExtraAbilityType.ANNUAL_VIP:
       return "ANNUAL_VIP";
-    case PetExtraAbilityType.SUPER_NONO:
+    case ProtoPetExtraAbilityType.SUPER_NONO:
       return "SUPER_NONO";
-    case PetExtraAbilityType.EXTRA_HP:
+    case ProtoPetExtraAbilityType.EXTRA_HP:
       return "EXTRA_HP";
-    case PetExtraAbilityType.UNRECOGNIZED:
+    case ProtoPetExtraAbilityType.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
 }
 
-export function petExtraAbilityTypeToNumber(object: PetExtraAbilityType): number {
+export function protoPetExtraAbilityTypeToNumber(object: ProtoPetExtraAbilityType): number {
   switch (object) {
-    case PetExtraAbilityType.UNSPECIFIED:
+    case ProtoPetExtraAbilityType.UNSPECIFIED:
       return 0;
-    case PetExtraAbilityType.TEAM_TECH:
+    case ProtoPetExtraAbilityType.TEAM_TECH:
       return 1;
-    case PetExtraAbilityType.ANNUAL_VIP:
+    case ProtoPetExtraAbilityType.ANNUAL_VIP:
       return 2;
-    case PetExtraAbilityType.SUPER_NONO:
+    case ProtoPetExtraAbilityType.SUPER_NONO:
       return 3;
-    case PetExtraAbilityType.EXTRA_HP:
+    case ProtoPetExtraAbilityType.EXTRA_HP:
       return 4;
-    case PetExtraAbilityType.UNRECOGNIZED:
+    case ProtoPetExtraAbilityType.UNRECOGNIZED:
     default:
       return -1;
   }
 }
 
-export interface PetAbilityValue {
+export interface ProtoPetAbilityValue {
   hp: number;
   atk: number;
   def: number;
@@ -85,23 +85,23 @@ export interface PetAbilityValue {
   spd: number;
 }
 
-export interface PetAbilityValueTotal {
-  base: PetAbilityValue | undefined;
-  pvp: PetAbilityValue | undefined;
-  pve: PetAbilityValue | undefined;
+export interface ProtoPetAbilityValueTotal {
+  base: ProtoPetAbilityValue | undefined;
+  pvp: ProtoPetAbilityValue | undefined;
+  pve: ProtoPetAbilityValue | undefined;
 }
 
-export interface PetExtraAbilityItem {
-  type: PetExtraAbilityType;
-  values: PetAbilityValue | undefined;
+export interface ProtoPetExtraAbilityItem {
+  type: ProtoPetExtraAbilityType;
+  values: ProtoPetAbilityValue | undefined;
 }
 
-function createBasePetAbilityValue(): PetAbilityValue {
+function createBaseProtoPetAbilityValue(): ProtoPetAbilityValue {
   return { hp: 0, atk: 0, def: 0, spAtk: 0, spDef: 0, spd: 0 };
 }
 
-export const PetAbilityValue: MessageFns<PetAbilityValue> = {
-  encode(message: PetAbilityValue, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const ProtoPetAbilityValue: MessageFns<ProtoPetAbilityValue> = {
+  encode(message: ProtoPetAbilityValue, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.hp !== 0) {
       writer.uint32(8).int32(message.hp);
     }
@@ -123,10 +123,10 @@ export const PetAbilityValue: MessageFns<PetAbilityValue> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): PetAbilityValue {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoPetAbilityValue {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePetAbilityValue();
+    const message = createBaseProtoPetAbilityValue();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -187,7 +187,7 @@ export const PetAbilityValue: MessageFns<PetAbilityValue> = {
     return message;
   },
 
-  fromJSON(object: any): PetAbilityValue {
+  fromJSON(object: any): ProtoPetAbilityValue {
     return {
       hp: isSet(object.hp) ? globalThis.Number(object.hp) : 0,
       atk: isSet(object.atk) ? globalThis.Number(object.atk) : 0,
@@ -198,7 +198,7 @@ export const PetAbilityValue: MessageFns<PetAbilityValue> = {
     };
   },
 
-  toJSON(message: PetAbilityValue): unknown {
+  toJSON(message: ProtoPetAbilityValue): unknown {
     const obj: any = {};
     if (message.hp !== 0) {
       obj.hp = Math.round(message.hp);
@@ -221,11 +221,11 @@ export const PetAbilityValue: MessageFns<PetAbilityValue> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<PetAbilityValue>, I>>(base?: I): PetAbilityValue {
-    return PetAbilityValue.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoPetAbilityValue>, I>>(base?: I): ProtoPetAbilityValue {
+    return ProtoPetAbilityValue.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<PetAbilityValue>, I>>(object: I): PetAbilityValue {
-    const message = createBasePetAbilityValue();
+  fromPartial<I extends Exact<DeepPartial<ProtoPetAbilityValue>, I>>(object: I): ProtoPetAbilityValue {
+    const message = createBaseProtoPetAbilityValue();
     message.hp = object.hp ?? 0;
     message.atk = object.atk ?? 0;
     message.def = object.def ?? 0;
@@ -236,28 +236,28 @@ export const PetAbilityValue: MessageFns<PetAbilityValue> = {
   },
 };
 
-function createBasePetAbilityValueTotal(): PetAbilityValueTotal {
+function createBaseProtoPetAbilityValueTotal(): ProtoPetAbilityValueTotal {
   return { base: undefined, pvp: undefined, pve: undefined };
 }
 
-export const PetAbilityValueTotal: MessageFns<PetAbilityValueTotal> = {
-  encode(message: PetAbilityValueTotal, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const ProtoPetAbilityValueTotal: MessageFns<ProtoPetAbilityValueTotal> = {
+  encode(message: ProtoPetAbilityValueTotal, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.base !== undefined) {
-      PetAbilityValue.encode(message.base, writer.uint32(10).fork()).join();
+      ProtoPetAbilityValue.encode(message.base, writer.uint32(10).fork()).join();
     }
     if (message.pvp !== undefined) {
-      PetAbilityValue.encode(message.pvp, writer.uint32(18).fork()).join();
+      ProtoPetAbilityValue.encode(message.pvp, writer.uint32(18).fork()).join();
     }
     if (message.pve !== undefined) {
-      PetAbilityValue.encode(message.pve, writer.uint32(26).fork()).join();
+      ProtoPetAbilityValue.encode(message.pve, writer.uint32(26).fork()).join();
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): PetAbilityValueTotal {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoPetAbilityValueTotal {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePetAbilityValueTotal();
+    const message = createBaseProtoPetAbilityValueTotal();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -266,7 +266,7 @@ export const PetAbilityValueTotal: MessageFns<PetAbilityValueTotal> = {
             break;
           }
 
-          message.base = PetAbilityValue.decode(reader, reader.uint32());
+          message.base = ProtoPetAbilityValue.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -274,7 +274,7 @@ export const PetAbilityValueTotal: MessageFns<PetAbilityValueTotal> = {
             break;
           }
 
-          message.pvp = PetAbilityValue.decode(reader, reader.uint32());
+          message.pvp = ProtoPetAbilityValue.decode(reader, reader.uint32());
           continue;
         }
         case 3: {
@@ -282,7 +282,7 @@ export const PetAbilityValueTotal: MessageFns<PetAbilityValueTotal> = {
             break;
           }
 
-          message.pve = PetAbilityValue.decode(reader, reader.uint32());
+          message.pve = ProtoPetAbilityValue.decode(reader, reader.uint32());
           continue;
         }
       }
@@ -294,65 +294,65 @@ export const PetAbilityValueTotal: MessageFns<PetAbilityValueTotal> = {
     return message;
   },
 
-  fromJSON(object: any): PetAbilityValueTotal {
+  fromJSON(object: any): ProtoPetAbilityValueTotal {
     return {
-      base: isSet(object.base) ? PetAbilityValue.fromJSON(object.base) : undefined,
-      pvp: isSet(object.pvp) ? PetAbilityValue.fromJSON(object.pvp) : undefined,
-      pve: isSet(object.pve) ? PetAbilityValue.fromJSON(object.pve) : undefined,
+      base: isSet(object.base) ? ProtoPetAbilityValue.fromJSON(object.base) : undefined,
+      pvp: isSet(object.pvp) ? ProtoPetAbilityValue.fromJSON(object.pvp) : undefined,
+      pve: isSet(object.pve) ? ProtoPetAbilityValue.fromJSON(object.pve) : undefined,
     };
   },
 
-  toJSON(message: PetAbilityValueTotal): unknown {
+  toJSON(message: ProtoPetAbilityValueTotal): unknown {
     const obj: any = {};
     if (message.base !== undefined) {
-      obj.base = PetAbilityValue.toJSON(message.base);
+      obj.base = ProtoPetAbilityValue.toJSON(message.base);
     }
     if (message.pvp !== undefined) {
-      obj.pvp = PetAbilityValue.toJSON(message.pvp);
+      obj.pvp = ProtoPetAbilityValue.toJSON(message.pvp);
     }
     if (message.pve !== undefined) {
-      obj.pve = PetAbilityValue.toJSON(message.pve);
+      obj.pve = ProtoPetAbilityValue.toJSON(message.pve);
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<PetAbilityValueTotal>, I>>(base?: I): PetAbilityValueTotal {
-    return PetAbilityValueTotal.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoPetAbilityValueTotal>, I>>(base?: I): ProtoPetAbilityValueTotal {
+    return ProtoPetAbilityValueTotal.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<PetAbilityValueTotal>, I>>(object: I): PetAbilityValueTotal {
-    const message = createBasePetAbilityValueTotal();
+  fromPartial<I extends Exact<DeepPartial<ProtoPetAbilityValueTotal>, I>>(object: I): ProtoPetAbilityValueTotal {
+    const message = createBaseProtoPetAbilityValueTotal();
     message.base = (object.base !== undefined && object.base !== null)
-      ? PetAbilityValue.fromPartial(object.base)
+      ? ProtoPetAbilityValue.fromPartial(object.base)
       : undefined;
     message.pvp = (object.pvp !== undefined && object.pvp !== null)
-      ? PetAbilityValue.fromPartial(object.pvp)
+      ? ProtoPetAbilityValue.fromPartial(object.pvp)
       : undefined;
     message.pve = (object.pve !== undefined && object.pve !== null)
-      ? PetAbilityValue.fromPartial(object.pve)
+      ? ProtoPetAbilityValue.fromPartial(object.pve)
       : undefined;
     return message;
   },
 };
 
-function createBasePetExtraAbilityItem(): PetExtraAbilityItem {
-  return { type: PetExtraAbilityType.UNSPECIFIED, values: undefined };
+function createBaseProtoPetExtraAbilityItem(): ProtoPetExtraAbilityItem {
+  return { type: ProtoPetExtraAbilityType.UNSPECIFIED, values: undefined };
 }
 
-export const PetExtraAbilityItem: MessageFns<PetExtraAbilityItem> = {
-  encode(message: PetExtraAbilityItem, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.type !== PetExtraAbilityType.UNSPECIFIED) {
-      writer.uint32(8).int32(petExtraAbilityTypeToNumber(message.type));
+export const ProtoPetExtraAbilityItem: MessageFns<ProtoPetExtraAbilityItem> = {
+  encode(message: ProtoPetExtraAbilityItem, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.type !== ProtoPetExtraAbilityType.UNSPECIFIED) {
+      writer.uint32(8).int32(protoPetExtraAbilityTypeToNumber(message.type));
     }
     if (message.values !== undefined) {
-      PetAbilityValue.encode(message.values, writer.uint32(18).fork()).join();
+      ProtoPetAbilityValue.encode(message.values, writer.uint32(18).fork()).join();
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): PetExtraAbilityItem {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoPetExtraAbilityItem {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePetExtraAbilityItem();
+    const message = createBaseProtoPetExtraAbilityItem();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -361,7 +361,7 @@ export const PetExtraAbilityItem: MessageFns<PetExtraAbilityItem> = {
             break;
           }
 
-          message.type = petExtraAbilityTypeFromJSON(reader.int32());
+          message.type = protoPetExtraAbilityTypeFromJSON(reader.int32());
           continue;
         }
         case 2: {
@@ -369,7 +369,7 @@ export const PetExtraAbilityItem: MessageFns<PetExtraAbilityItem> = {
             break;
           }
 
-          message.values = PetAbilityValue.decode(reader, reader.uint32());
+          message.values = ProtoPetAbilityValue.decode(reader, reader.uint32());
           continue;
         }
       }
@@ -381,32 +381,32 @@ export const PetExtraAbilityItem: MessageFns<PetExtraAbilityItem> = {
     return message;
   },
 
-  fromJSON(object: any): PetExtraAbilityItem {
+  fromJSON(object: any): ProtoPetExtraAbilityItem {
     return {
-      type: isSet(object.type) ? petExtraAbilityTypeFromJSON(object.type) : PetExtraAbilityType.UNSPECIFIED,
-      values: isSet(object.values) ? PetAbilityValue.fromJSON(object.values) : undefined,
+      type: isSet(object.type) ? protoPetExtraAbilityTypeFromJSON(object.type) : ProtoPetExtraAbilityType.UNSPECIFIED,
+      values: isSet(object.values) ? ProtoPetAbilityValue.fromJSON(object.values) : undefined,
     };
   },
 
-  toJSON(message: PetExtraAbilityItem): unknown {
+  toJSON(message: ProtoPetExtraAbilityItem): unknown {
     const obj: any = {};
-    if (message.type !== PetExtraAbilityType.UNSPECIFIED) {
-      obj.type = petExtraAbilityTypeToJSON(message.type);
+    if (message.type !== ProtoPetExtraAbilityType.UNSPECIFIED) {
+      obj.type = protoPetExtraAbilityTypeToJSON(message.type);
     }
     if (message.values !== undefined) {
-      obj.values = PetAbilityValue.toJSON(message.values);
+      obj.values = ProtoPetAbilityValue.toJSON(message.values);
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<PetExtraAbilityItem>, I>>(base?: I): PetExtraAbilityItem {
-    return PetExtraAbilityItem.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoPetExtraAbilityItem>, I>>(base?: I): ProtoPetExtraAbilityItem {
+    return ProtoPetExtraAbilityItem.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<PetExtraAbilityItem>, I>>(object: I): PetExtraAbilityItem {
-    const message = createBasePetExtraAbilityItem();
-    message.type = object.type ?? PetExtraAbilityType.UNSPECIFIED;
+  fromPartial<I extends Exact<DeepPartial<ProtoPetExtraAbilityItem>, I>>(object: I): ProtoPetExtraAbilityItem {
+    const message = createBaseProtoPetExtraAbilityItem();
+    message.type = object.type ?? ProtoPetExtraAbilityType.UNSPECIFIED;
     message.values = (object.values !== undefined && object.values !== null)
-      ? PetAbilityValue.fromPartial(object.values)
+      ? ProtoPetAbilityValue.fromPartial(object.values)
       : undefined;
     return message;
   },

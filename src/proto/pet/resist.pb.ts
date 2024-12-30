@@ -7,30 +7,30 @@
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 
-export interface HurtResist {
+export interface ProtoHurtResist {
   crit: number;
   regular: number;
   precent: number;
 }
 
-export interface StateResistItem {
+export interface ProtoStateResistItem {
   stateID: number;
   stateName: string;
   percent: number;
 }
 
-export interface ResistanceInfo {
-  hurt: HurtResist | undefined;
-  ctl: StateResistItem[];
-  weak: StateResistItem[];
+export interface ProtoResistanceInfo {
+  hurt: ProtoHurtResist | undefined;
+  ctl: ProtoStateResistItem[];
+  weak: ProtoStateResistItem[];
 }
 
-function createBaseHurtResist(): HurtResist {
+function createBaseProtoHurtResist(): ProtoHurtResist {
   return { crit: 0, regular: 0, precent: 0 };
 }
 
-export const HurtResist: MessageFns<HurtResist> = {
-  encode(message: HurtResist, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const ProtoHurtResist: MessageFns<ProtoHurtResist> = {
+  encode(message: ProtoHurtResist, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.crit !== 0) {
       writer.uint32(8).int32(message.crit);
     }
@@ -43,10 +43,10 @@ export const HurtResist: MessageFns<HurtResist> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): HurtResist {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoHurtResist {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseHurtResist();
+    const message = createBaseProtoHurtResist();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -83,7 +83,7 @@ export const HurtResist: MessageFns<HurtResist> = {
     return message;
   },
 
-  fromJSON(object: any): HurtResist {
+  fromJSON(object: any): ProtoHurtResist {
     return {
       crit: isSet(object.crit) ? globalThis.Number(object.crit) : 0,
       regular: isSet(object.regular) ? globalThis.Number(object.regular) : 0,
@@ -91,7 +91,7 @@ export const HurtResist: MessageFns<HurtResist> = {
     };
   },
 
-  toJSON(message: HurtResist): unknown {
+  toJSON(message: ProtoHurtResist): unknown {
     const obj: any = {};
     if (message.crit !== 0) {
       obj.crit = Math.round(message.crit);
@@ -105,11 +105,11 @@ export const HurtResist: MessageFns<HurtResist> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<HurtResist>, I>>(base?: I): HurtResist {
-    return HurtResist.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoHurtResist>, I>>(base?: I): ProtoHurtResist {
+    return ProtoHurtResist.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<HurtResist>, I>>(object: I): HurtResist {
-    const message = createBaseHurtResist();
+  fromPartial<I extends Exact<DeepPartial<ProtoHurtResist>, I>>(object: I): ProtoHurtResist {
+    const message = createBaseProtoHurtResist();
     message.crit = object.crit ?? 0;
     message.regular = object.regular ?? 0;
     message.precent = object.precent ?? 0;
@@ -117,12 +117,12 @@ export const HurtResist: MessageFns<HurtResist> = {
   },
 };
 
-function createBaseStateResistItem(): StateResistItem {
+function createBaseProtoStateResistItem(): ProtoStateResistItem {
   return { stateID: 0, stateName: "", percent: 0 };
 }
 
-export const StateResistItem: MessageFns<StateResistItem> = {
-  encode(message: StateResistItem, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const ProtoStateResistItem: MessageFns<ProtoStateResistItem> = {
+  encode(message: ProtoStateResistItem, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.stateID !== 0) {
       writer.uint32(8).int32(message.stateID);
     }
@@ -135,10 +135,10 @@ export const StateResistItem: MessageFns<StateResistItem> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): StateResistItem {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoStateResistItem {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseStateResistItem();
+    const message = createBaseProtoStateResistItem();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -175,7 +175,7 @@ export const StateResistItem: MessageFns<StateResistItem> = {
     return message;
   },
 
-  fromJSON(object: any): StateResistItem {
+  fromJSON(object: any): ProtoStateResistItem {
     return {
       stateID: isSet(object.stateID) ? globalThis.Number(object.stateID) : 0,
       stateName: isSet(object.stateName) ? globalThis.String(object.stateName) : "",
@@ -183,7 +183,7 @@ export const StateResistItem: MessageFns<StateResistItem> = {
     };
   },
 
-  toJSON(message: StateResistItem): unknown {
+  toJSON(message: ProtoStateResistItem): unknown {
     const obj: any = {};
     if (message.stateID !== 0) {
       obj.stateID = Math.round(message.stateID);
@@ -197,11 +197,11 @@ export const StateResistItem: MessageFns<StateResistItem> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<StateResistItem>, I>>(base?: I): StateResistItem {
-    return StateResistItem.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoStateResistItem>, I>>(base?: I): ProtoStateResistItem {
+    return ProtoStateResistItem.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<StateResistItem>, I>>(object: I): StateResistItem {
-    const message = createBaseStateResistItem();
+  fromPartial<I extends Exact<DeepPartial<ProtoStateResistItem>, I>>(object: I): ProtoStateResistItem {
+    const message = createBaseProtoStateResistItem();
     message.stateID = object.stateID ?? 0;
     message.stateName = object.stateName ?? "";
     message.percent = object.percent ?? 0;
@@ -209,28 +209,28 @@ export const StateResistItem: MessageFns<StateResistItem> = {
   },
 };
 
-function createBaseResistanceInfo(): ResistanceInfo {
+function createBaseProtoResistanceInfo(): ProtoResistanceInfo {
   return { hurt: undefined, ctl: [], weak: [] };
 }
 
-export const ResistanceInfo: MessageFns<ResistanceInfo> = {
-  encode(message: ResistanceInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const ProtoResistanceInfo: MessageFns<ProtoResistanceInfo> = {
+  encode(message: ProtoResistanceInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.hurt !== undefined) {
-      HurtResist.encode(message.hurt, writer.uint32(10).fork()).join();
+      ProtoHurtResist.encode(message.hurt, writer.uint32(10).fork()).join();
     }
     for (const v of message.ctl) {
-      StateResistItem.encode(v!, writer.uint32(18).fork()).join();
+      ProtoStateResistItem.encode(v!, writer.uint32(18).fork()).join();
     }
     for (const v of message.weak) {
-      StateResistItem.encode(v!, writer.uint32(26).fork()).join();
+      ProtoStateResistItem.encode(v!, writer.uint32(26).fork()).join();
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): ResistanceInfo {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoResistanceInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseResistanceInfo();
+    const message = createBaseProtoResistanceInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -239,7 +239,7 @@ export const ResistanceInfo: MessageFns<ResistanceInfo> = {
             break;
           }
 
-          message.hurt = HurtResist.decode(reader, reader.uint32());
+          message.hurt = ProtoHurtResist.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -247,7 +247,7 @@ export const ResistanceInfo: MessageFns<ResistanceInfo> = {
             break;
           }
 
-          message.ctl.push(StateResistItem.decode(reader, reader.uint32()));
+          message.ctl.push(ProtoStateResistItem.decode(reader, reader.uint32()));
           continue;
         }
         case 3: {
@@ -255,7 +255,7 @@ export const ResistanceInfo: MessageFns<ResistanceInfo> = {
             break;
           }
 
-          message.weak.push(StateResistItem.decode(reader, reader.uint32()));
+          message.weak.push(ProtoStateResistItem.decode(reader, reader.uint32()));
           continue;
         }
       }
@@ -267,38 +267,38 @@ export const ResistanceInfo: MessageFns<ResistanceInfo> = {
     return message;
   },
 
-  fromJSON(object: any): ResistanceInfo {
+  fromJSON(object: any): ProtoResistanceInfo {
     return {
-      hurt: isSet(object.hurt) ? HurtResist.fromJSON(object.hurt) : undefined,
-      ctl: globalThis.Array.isArray(object?.ctl) ? object.ctl.map((e: any) => StateResistItem.fromJSON(e)) : [],
-      weak: globalThis.Array.isArray(object?.weak) ? object.weak.map((e: any) => StateResistItem.fromJSON(e)) : [],
+      hurt: isSet(object.hurt) ? ProtoHurtResist.fromJSON(object.hurt) : undefined,
+      ctl: globalThis.Array.isArray(object?.ctl) ? object.ctl.map((e: any) => ProtoStateResistItem.fromJSON(e)) : [],
+      weak: globalThis.Array.isArray(object?.weak) ? object.weak.map((e: any) => ProtoStateResistItem.fromJSON(e)) : [],
     };
   },
 
-  toJSON(message: ResistanceInfo): unknown {
+  toJSON(message: ProtoResistanceInfo): unknown {
     const obj: any = {};
     if (message.hurt !== undefined) {
-      obj.hurt = HurtResist.toJSON(message.hurt);
+      obj.hurt = ProtoHurtResist.toJSON(message.hurt);
     }
     if (message.ctl?.length) {
-      obj.ctl = message.ctl.map((e) => StateResistItem.toJSON(e));
+      obj.ctl = message.ctl.map((e) => ProtoStateResistItem.toJSON(e));
     }
     if (message.weak?.length) {
-      obj.weak = message.weak.map((e) => StateResistItem.toJSON(e));
+      obj.weak = message.weak.map((e) => ProtoStateResistItem.toJSON(e));
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<ResistanceInfo>, I>>(base?: I): ResistanceInfo {
-    return ResistanceInfo.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoResistanceInfo>, I>>(base?: I): ProtoResistanceInfo {
+    return ProtoResistanceInfo.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<ResistanceInfo>, I>>(object: I): ResistanceInfo {
-    const message = createBaseResistanceInfo();
+  fromPartial<I extends Exact<DeepPartial<ProtoResistanceInfo>, I>>(object: I): ProtoResistanceInfo {
+    const message = createBaseProtoResistanceInfo();
     message.hurt = (object.hurt !== undefined && object.hurt !== null)
-      ? HurtResist.fromPartial(object.hurt)
+      ? ProtoHurtResist.fromPartial(object.hurt)
       : undefined;
-    message.ctl = object.ctl?.map((e) => StateResistItem.fromPartial(e)) || [];
-    message.weak = object.weak?.map((e) => StateResistItem.fromPartial(e)) || [];
+    message.ctl = object.ctl?.map((e) => ProtoStateResistItem.fromPartial(e)) || [];
+    message.weak = object.weak?.map((e) => ProtoStateResistItem.fromPartial(e)) || [];
     return message;
   },
 };

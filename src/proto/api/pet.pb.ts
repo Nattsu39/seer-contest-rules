@@ -6,10 +6,10 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { PetInfo } from "../pet/petinfo.pb.js";
-import { UserSet } from "../user/user_set.pb.js";
+import { ProtoPetInfo } from "../pet/petinfo.pb.js";
+import { ProtoUserSet } from "../user/user_set.pb.js";
 
-export enum PetMessageTypeEnum {
+export enum ProtoPetMessageTypeEnum {
   UNSPECIFIED = "UNSPECIFIED",
   OFFICIAL = "OFFICIAL",
   CLASSIC = "CLASSIC",
@@ -19,105 +19,105 @@ export enum PetMessageTypeEnum {
   UNRECOGNIZED = "UNRECOGNIZED",
 }
 
-export function petMessageTypeEnumFromJSON(object: any): PetMessageTypeEnum {
+export function protoPetMessageTypeEnumFromJSON(object: any): ProtoPetMessageTypeEnum {
   switch (object) {
     case 0:
     case "UNSPECIFIED":
-      return PetMessageTypeEnum.UNSPECIFIED;
+      return ProtoPetMessageTypeEnum.UNSPECIFIED;
     case 1:
     case "OFFICIAL":
-      return PetMessageTypeEnum.OFFICIAL;
+      return ProtoPetMessageTypeEnum.OFFICIAL;
     case 2:
     case "CLASSIC":
-      return PetMessageTypeEnum.CLASSIC;
+      return ProtoPetMessageTypeEnum.CLASSIC;
     case 3:
     case "TEST":
-      return PetMessageTypeEnum.TEST;
+      return ProtoPetMessageTypeEnum.TEST;
     case 4:
     case "TAIWAN":
-      return PetMessageTypeEnum.TAIWAN;
+      return ProtoPetMessageTypeEnum.TAIWAN;
     case 10:
     case "CLASSIC_XIN":
-      return PetMessageTypeEnum.CLASSIC_XIN;
+      return ProtoPetMessageTypeEnum.CLASSIC_XIN;
     case -1:
     case "UNRECOGNIZED":
     default:
-      return PetMessageTypeEnum.UNRECOGNIZED;
+      return ProtoPetMessageTypeEnum.UNRECOGNIZED;
   }
 }
 
-export function petMessageTypeEnumToJSON(object: PetMessageTypeEnum): string {
+export function protoPetMessageTypeEnumToJSON(object: ProtoPetMessageTypeEnum): string {
   switch (object) {
-    case PetMessageTypeEnum.UNSPECIFIED:
+    case ProtoPetMessageTypeEnum.UNSPECIFIED:
       return "UNSPECIFIED";
-    case PetMessageTypeEnum.OFFICIAL:
+    case ProtoPetMessageTypeEnum.OFFICIAL:
       return "OFFICIAL";
-    case PetMessageTypeEnum.CLASSIC:
+    case ProtoPetMessageTypeEnum.CLASSIC:
       return "CLASSIC";
-    case PetMessageTypeEnum.TEST:
+    case ProtoPetMessageTypeEnum.TEST:
       return "TEST";
-    case PetMessageTypeEnum.TAIWAN:
+    case ProtoPetMessageTypeEnum.TAIWAN:
       return "TAIWAN";
-    case PetMessageTypeEnum.CLASSIC_XIN:
+    case ProtoPetMessageTypeEnum.CLASSIC_XIN:
       return "CLASSIC_XIN";
-    case PetMessageTypeEnum.UNRECOGNIZED:
+    case ProtoPetMessageTypeEnum.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
 }
 
-export function petMessageTypeEnumToNumber(object: PetMessageTypeEnum): number {
+export function protoPetMessageTypeEnumToNumber(object: ProtoPetMessageTypeEnum): number {
   switch (object) {
-    case PetMessageTypeEnum.UNSPECIFIED:
+    case ProtoPetMessageTypeEnum.UNSPECIFIED:
       return 0;
-    case PetMessageTypeEnum.OFFICIAL:
+    case ProtoPetMessageTypeEnum.OFFICIAL:
       return 1;
-    case PetMessageTypeEnum.CLASSIC:
+    case ProtoPetMessageTypeEnum.CLASSIC:
       return 2;
-    case PetMessageTypeEnum.TEST:
+    case ProtoPetMessageTypeEnum.TEST:
       return 3;
-    case PetMessageTypeEnum.TAIWAN:
+    case ProtoPetMessageTypeEnum.TAIWAN:
       return 4;
-    case PetMessageTypeEnum.CLASSIC_XIN:
+    case ProtoPetMessageTypeEnum.CLASSIC_XIN:
       return 10;
-    case PetMessageTypeEnum.UNRECOGNIZED:
+    case ProtoPetMessageTypeEnum.UNRECOGNIZED:
     default:
       return -1;
   }
 }
 
-export interface PetMessage {
+export interface ProtoPetMessage {
   version: number;
-  type: PetMessageTypeEnum;
-  userSet: UserSet | undefined;
-  petInfo: PetInfo[];
+  type: ProtoPetMessageTypeEnum;
+  userSet: ProtoUserSet | undefined;
+  petInfo: ProtoPetInfo[];
 }
 
-function createBasePetMessage(): PetMessage {
-  return { version: 0, type: PetMessageTypeEnum.UNSPECIFIED, userSet: undefined, petInfo: [] };
+function createBaseProtoPetMessage(): ProtoPetMessage {
+  return { version: 0, type: ProtoPetMessageTypeEnum.UNSPECIFIED, userSet: undefined, petInfo: [] };
 }
 
-export const PetMessage: MessageFns<PetMessage> = {
-  encode(message: PetMessage, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const ProtoPetMessage: MessageFns<ProtoPetMessage> = {
+  encode(message: ProtoPetMessage, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.version !== 0) {
       writer.uint32(8).int32(message.version);
     }
-    if (message.type !== PetMessageTypeEnum.UNSPECIFIED) {
-      writer.uint32(16).int32(petMessageTypeEnumToNumber(message.type));
+    if (message.type !== ProtoPetMessageTypeEnum.UNSPECIFIED) {
+      writer.uint32(16).int32(protoPetMessageTypeEnumToNumber(message.type));
     }
     if (message.userSet !== undefined) {
-      UserSet.encode(message.userSet, writer.uint32(26).fork()).join();
+      ProtoUserSet.encode(message.userSet, writer.uint32(26).fork()).join();
     }
     for (const v of message.petInfo) {
-      PetInfo.encode(v!, writer.uint32(74).fork()).join();
+      ProtoPetInfo.encode(v!, writer.uint32(74).fork()).join();
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): PetMessage {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoPetMessage {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePetMessage();
+    const message = createBaseProtoPetMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -134,7 +134,7 @@ export const PetMessage: MessageFns<PetMessage> = {
             break;
           }
 
-          message.type = petMessageTypeEnumFromJSON(reader.int32());
+          message.type = protoPetMessageTypeEnumFromJSON(reader.int32());
           continue;
         }
         case 3: {
@@ -142,7 +142,7 @@ export const PetMessage: MessageFns<PetMessage> = {
             break;
           }
 
-          message.userSet = UserSet.decode(reader, reader.uint32());
+          message.userSet = ProtoUserSet.decode(reader, reader.uint32());
           continue;
         }
         case 9: {
@@ -150,7 +150,7 @@ export const PetMessage: MessageFns<PetMessage> = {
             break;
           }
 
-          message.petInfo.push(PetInfo.decode(reader, reader.uint32()));
+          message.petInfo.push(ProtoPetInfo.decode(reader, reader.uint32()));
           continue;
         }
       }
@@ -162,43 +162,45 @@ export const PetMessage: MessageFns<PetMessage> = {
     return message;
   },
 
-  fromJSON(object: any): PetMessage {
+  fromJSON(object: any): ProtoPetMessage {
     return {
       version: isSet(object.version) ? globalThis.Number(object.version) : 0,
-      type: isSet(object.type) ? petMessageTypeEnumFromJSON(object.type) : PetMessageTypeEnum.UNSPECIFIED,
-      userSet: isSet(object.userSet) ? UserSet.fromJSON(object.userSet) : undefined,
-      petInfo: globalThis.Array.isArray(object?.petInfo) ? object.petInfo.map((e: any) => PetInfo.fromJSON(e)) : [],
+      type: isSet(object.type) ? protoPetMessageTypeEnumFromJSON(object.type) : ProtoPetMessageTypeEnum.UNSPECIFIED,
+      userSet: isSet(object.userSet) ? ProtoUserSet.fromJSON(object.userSet) : undefined,
+      petInfo: globalThis.Array.isArray(object?.petInfo)
+        ? object.petInfo.map((e: any) => ProtoPetInfo.fromJSON(e))
+        : [],
     };
   },
 
-  toJSON(message: PetMessage): unknown {
+  toJSON(message: ProtoPetMessage): unknown {
     const obj: any = {};
     if (message.version !== 0) {
       obj.version = Math.round(message.version);
     }
-    if (message.type !== PetMessageTypeEnum.UNSPECIFIED) {
-      obj.type = petMessageTypeEnumToJSON(message.type);
+    if (message.type !== ProtoPetMessageTypeEnum.UNSPECIFIED) {
+      obj.type = protoPetMessageTypeEnumToJSON(message.type);
     }
     if (message.userSet !== undefined) {
-      obj.userSet = UserSet.toJSON(message.userSet);
+      obj.userSet = ProtoUserSet.toJSON(message.userSet);
     }
     if (message.petInfo?.length) {
-      obj.petInfo = message.petInfo.map((e) => PetInfo.toJSON(e));
+      obj.petInfo = message.petInfo.map((e) => ProtoPetInfo.toJSON(e));
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<PetMessage>, I>>(base?: I): PetMessage {
-    return PetMessage.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoPetMessage>, I>>(base?: I): ProtoPetMessage {
+    return ProtoPetMessage.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<PetMessage>, I>>(object: I): PetMessage {
-    const message = createBasePetMessage();
+  fromPartial<I extends Exact<DeepPartial<ProtoPetMessage>, I>>(object: I): ProtoPetMessage {
+    const message = createBaseProtoPetMessage();
     message.version = object.version ?? 0;
-    message.type = object.type ?? PetMessageTypeEnum.UNSPECIFIED;
+    message.type = object.type ?? ProtoPetMessageTypeEnum.UNSPECIFIED;
     message.userSet = (object.userSet !== undefined && object.userSet !== null)
-      ? UserSet.fromPartial(object.userSet)
+      ? ProtoUserSet.fromPartial(object.userSet)
       : undefined;
-    message.petInfo = object.petInfo?.map((e) => PetInfo.fromPartial(e)) || [];
+    message.petInfo = object.petInfo?.map((e) => ProtoPetInfo.fromPartial(e)) || [];
     return message;
   },
 };

@@ -7,17 +7,17 @@
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 
-export interface UserSet {
+export interface ProtoUserSet {
   equip: number[];
   achievement: number;
 }
 
-function createBaseUserSet(): UserSet {
+function createBaseProtoUserSet(): ProtoUserSet {
   return { equip: [], achievement: 0 };
 }
 
-export const UserSet: MessageFns<UserSet> = {
-  encode(message: UserSet, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const ProtoUserSet: MessageFns<ProtoUserSet> = {
+  encode(message: ProtoUserSet, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     writer.uint32(10).fork();
     for (const v of message.equip) {
       writer.int32(v);
@@ -29,10 +29,10 @@ export const UserSet: MessageFns<UserSet> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): UserSet {
+  decode(input: BinaryReader | Uint8Array, length?: number): ProtoUserSet {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseUserSet();
+    const message = createBaseProtoUserSet();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -71,14 +71,14 @@ export const UserSet: MessageFns<UserSet> = {
     return message;
   },
 
-  fromJSON(object: any): UserSet {
+  fromJSON(object: any): ProtoUserSet {
     return {
       equip: globalThis.Array.isArray(object?.equip) ? object.equip.map((e: any) => globalThis.Number(e)) : [],
       achievement: isSet(object.achievement) ? globalThis.Number(object.achievement) : 0,
     };
   },
 
-  toJSON(message: UserSet): unknown {
+  toJSON(message: ProtoUserSet): unknown {
     const obj: any = {};
     if (message.equip?.length) {
       obj.equip = message.equip.map((e) => Math.round(e));
@@ -89,11 +89,11 @@ export const UserSet: MessageFns<UserSet> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<UserSet>, I>>(base?: I): UserSet {
-    return UserSet.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<ProtoUserSet>, I>>(base?: I): ProtoUserSet {
+    return ProtoUserSet.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<UserSet>, I>>(object: I): UserSet {
-    const message = createBaseUserSet();
+  fromPartial<I extends Exact<DeepPartial<ProtoUserSet>, I>>(object: I): ProtoUserSet {
+    const message = createBaseProtoUserSet();
     message.equip = object.equip?.map((e) => e) || [];
     message.achievement = object.achievement ?? 0;
     return message;
