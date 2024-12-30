@@ -27,7 +27,7 @@ export interface GemItem {
 /**能力刻印信息 */
 export interface AbilityMintmarkInfo extends BaseMintmarkInfo {
   type: MintmarkType.ABILITY;
-  AbilityValues: PetAbilityValue;
+  AbilityValues?: PetAbilityValue;
 }
 
 /**全能刻印信息 */
@@ -41,7 +41,7 @@ export interface UniversalMintmarkInfo extends BaseMintmarkInfo {
 /**全效刻印信息 */
 export interface QuanxiaoMintmarkInfo extends BaseMintmarkInfo {
   type: MintmarkType.QUANXIAO;
-  AbilityValues: PetAbilityValue;
+  AbilityValues?: PetAbilityValue;
   skillID: number;
 }
 
