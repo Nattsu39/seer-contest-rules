@@ -12,8 +12,8 @@ const metadata: Metadata = {
 };
 
 const mintmarkRule: MintmarkDetailRule = [
-  { type: 'ability', classFilter: { include: [35] } },
-  { type: 'ability', classFilter: { include: [35] } },
+  { type: 'ABILITY', classFilter: { include: [35] } },
+  { type: 'ABILITY', classFilter: { include: [35] } },
 ];
 
 export const rule: PetSetRule = {

@@ -6,7 +6,7 @@ import {
   validateMintmarkConfiguration,
   validatePetEffect,
 } from '../index.js';
-import { MintmarkInfo, MintmarkType } from 'seer-interfaces/pet/index.js';
+import { MintmarkInfo } from 'seer-interfaces/pet/index.js';
 import { MintmarkDetailRule } from 'seer-interfaces/rule-set/index.js';
 
 const EMPTY_ABILITY = {
@@ -47,26 +47,26 @@ describe('greeter function', () => {
 
   test('刻印验证测试', () => {
     const mintmark: MintmarkInfo = {
-      type: MintmarkType.UNIVERSAL,
+      type: 'UNIVERSAL',
       id: 42,
       classID: 12,
       AbilityValues: EMPTY_ABILITY,
     };
     expect(
       validateMintmark(mintmark, {
-        type: MintmarkType.UNIVERSAL,
+        type: 'UNIVERSAL',
         classFilter: { include: [12] },
       }),
     ).toBe(true);
     expect(
       validateMintmark(mintmark, {
-        type: MintmarkType.UNIVERSAL,
+        type: 'UNIVERSAL',
         classFilter: { exclude: [12] },
       }),
     ).toBe(false);
     expect(
       validateMintmark(mintmark, {
-        type: MintmarkType.UNIVERSAL,
+        type: 'UNIVERSAL',
         classFilter: { include: [34] },
       }),
     ).toBe(false);
@@ -74,49 +74,49 @@ describe('greeter function', () => {
   test('刻印组合验证测试', () => {
     const mintmarks: MintmarkInfo[] = [
       {
-        type: MintmarkType.UNIVERSAL,
+        type: 'UNIVERSAL',
         id: 42,
         classID: 12,
         AbilityValues: EMPTY_ABILITY
       },
       {
-        type: MintmarkType.UNIVERSAL,
+        type: 'UNIVERSAL',
         id: 43,
         classID: 34,
         AbilityValues: EMPTY_ABILITY
       },
     ];
     let rule: MintmarkDetailRule = [
-      { type: MintmarkType.UNIVERSAL, classFilter: { include: [12, 34], exclude: [] } },
-      { type: MintmarkType.UNIVERSAL, classFilter: { include: [12], exclude: [34] } },
+      { type: 'UNIVERSAL', classFilter: { include: [12, 34], exclude: [] } },
+      { type: 'UNIVERSAL', classFilter: { include: [12], exclude: [34] } },
     ];
     expect(validateMintmarkConfiguration(mintmarks, rule)).toBe(true);
 
     rule = [
-      { type: MintmarkType.UNIVERSAL, classFilter: { include: [12], exclude: [] } },
-      { type: MintmarkType.UNIVERSAL, classFilter: { include: [12], exclude: [] } },
+      { type: 'UNIVERSAL', classFilter: { include: [12], exclude: [] } },
+      { type: 'UNIVERSAL', classFilter: { include: [12], exclude: [] } },
     ];
     expect(validateMintmarkConfiguration(mintmarks, rule)).not.toBe(true);
 
     rule = [
-      { type: MintmarkType.ABILITY, classFilter: { include: [12], exclude: [] } },
-      { type: MintmarkType.UNIVERSAL, classFilter: { include: [12], exclude: [] } },
+      { type: 'ABILITY', classFilter: { include: [12], exclude: [] } },
+      { type: 'UNIVERSAL', classFilter: { include: [12], exclude: [] } },
     ];
     expect(validateMintmarkConfiguration(mintmarks, rule)).not.toBe(true);
 
     rule = [
       {
-        type: MintmarkType.UNIVERSAL,
+        type: 'UNIVERSAL',
         classFilter: { include: [12], exclude: [] }
       },
       {
-        type: MintmarkType.UNIVERSAL,
+        type: 'UNIVERSAL',
         idFilter: { include: [888] },
         classFilter: { include: [12, 999], exclude: [] },
       },
     ];
     mintmarks[1] = {
-      type: MintmarkType.UNIVERSAL,
+      type: 'UNIVERSAL',
       id: 888,
       classID: 999,
       AbilityValues: EMPTY_ABILITY,
@@ -124,20 +124,20 @@ describe('greeter function', () => {
     expect(validateMintmarkConfiguration(mintmarks, rule)).toBe(true);
 
     mintmarks[1] = {
-      type: MintmarkType.UNIVERSAL,
+      type: 'UNIVERSAL',
       id: 889,
       classID: 999,
       AbilityValues: EMPTY_ABILITY,
     };
     expect(validateMintmarkConfiguration(mintmarks, rule)).not.toBe(true);
 
-    mintmarks[1] = { type: MintmarkType.SKILL, id: 889, skillID: 777 };
+    mintmarks[1] = { type: 'SKILL', id: 889, skillID: 777 };
     expect(validateMintmarkConfiguration(mintmarks, rule)).not.toBe(true);
 
-    rule[1] = { type: MintmarkType.SKILL, idFilter: { include: ['666~999'] } };
+    rule[1] = { type: 'SKILL', idFilter: { include: ['666~999'] } };
     expect(validateMintmarkConfiguration(mintmarks, rule)).toBe(true);
 
-    mintmarks[2] = { type: MintmarkType.SKILL, id: 889, skillID: 777 };
+    mintmarks[2] = { type: 'SKILL', id: 889, skillID: 777 };
     expect(validateMintmarkConfiguration(mintmarks, rule)).not.toBe(true);
   });
 
