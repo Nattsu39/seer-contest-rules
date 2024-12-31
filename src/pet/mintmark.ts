@@ -1,12 +1,14 @@
 import { PetAbilityValue } from "./index.js";
 
 
-export enum MintmarkType {
-  SKILL = 'SKILL',
-  ABILITY = 'ABILITY',
-  UNIVERSAL = 'UNIVERSAL',
-  QUANXIAO = 'QUANXIAO',
-}
+export const MintmarkType = [
+  'SKILL',
+  'ABILITY',
+  'UNIVERSAL',
+  'QUANXIAO',
+] as const;
+
+export type MintmarkType = typeof MintmarkType[number];
 
 interface BaseMintmarkInfo {
   type: MintmarkType;
@@ -15,7 +17,7 @@ interface BaseMintmarkInfo {
 
 /**技能刻印信息 */
 export interface SkillMintmarkInfo extends BaseMintmarkInfo {
-  type: MintmarkType.SKILL;
+  type: 'SKILL';
   skillID: number;
 }
 
@@ -26,13 +28,13 @@ export interface GemItem {
 
 /**能力刻印信息 */
 export interface AbilityMintmarkInfo extends BaseMintmarkInfo {
-  type: MintmarkType.ABILITY;
+  type: 'ABILITY';
   AbilityValues?: PetAbilityValue;
 }
 
 /**全能刻印信息 */
 export interface UniversalMintmarkInfo extends BaseMintmarkInfo {
-  type: MintmarkType.UNIVERSAL;
+  type: 'UNIVERSAL';
   AbilityValues: PetAbilityValue;
   classID: number;
   gem?: GemItem;
@@ -40,7 +42,7 @@ export interface UniversalMintmarkInfo extends BaseMintmarkInfo {
 
 /**全效刻印信息 */
 export interface QuanxiaoMintmarkInfo extends BaseMintmarkInfo {
-  type: MintmarkType.QUANXIAO;
+  type: 'QUANXIAO';
   AbilityValues?: PetAbilityValue;
   skillID: number;
 }

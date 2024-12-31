@@ -23,13 +23,15 @@ export interface PetEffectInfo {
   level: 0 | 1 | 2 | 3 | 4 | 5;
 }
 
-export enum PetExtraAbilityType {
-  EXTRA_HP = 'EXTRA_HP',
-  TEAM_TECH = 'TEAM_TECH',
-  ANNUAL_VIP = 'ANNUAL_VIP',
-  SUPER_NONO = 'SUPER_NONO',
-  UNSPECIFIED = 'UNSPECIFIED',
-}
+export const PetExtraAbilityType = [
+  'EXTRA_HP',
+  'TEAM_TECH',
+  'ANNUAL_VIP',
+  'SUPER_NONO',
+  'UNSPECIFIED',
+] as const;
+
+export type PetExtraAbilityType = typeof PetExtraAbilityType[number];
 
 export interface PetExtraAbilityItem {
   type: PetExtraAbilityType;
