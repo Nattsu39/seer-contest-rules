@@ -7,13 +7,24 @@
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 
-export enum ProtoPetExtraAbilityType {
-  UNSPECIFIED = "UNSPECIFIED",
-  TEAM_TECH = "TEAM_TECH",
-  ANNUAL_VIP = "ANNUAL_VIP",
-  SUPER_NONO = "SUPER_NONO",
-  EXTRA_HP = "EXTRA_HP",
-  UNRECOGNIZED = "UNRECOGNIZED",
+export const ProtoPetExtraAbilityType = {
+  UNSPECIFIED: "UNSPECIFIED",
+  TEAM_TECH: "TEAM_TECH",
+  ANNUAL_VIP: "ANNUAL_VIP",
+  SUPER_NONO: "SUPER_NONO",
+  EXTRA_HP: "EXTRA_HP",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export type ProtoPetExtraAbilityType = typeof ProtoPetExtraAbilityType[keyof typeof ProtoPetExtraAbilityType];
+
+export namespace ProtoPetExtraAbilityType {
+  export type UNSPECIFIED = typeof ProtoPetExtraAbilityType.UNSPECIFIED;
+  export type TEAM_TECH = typeof ProtoPetExtraAbilityType.TEAM_TECH;
+  export type ANNUAL_VIP = typeof ProtoPetExtraAbilityType.ANNUAL_VIP;
+  export type SUPER_NONO = typeof ProtoPetExtraAbilityType.SUPER_NONO;
+  export type EXTRA_HP = typeof ProtoPetExtraAbilityType.EXTRA_HP;
+  export type UNRECOGNIZED = typeof ProtoPetExtraAbilityType.UNRECOGNIZED;
 }
 
 export function protoPetExtraAbilityTypeFromJSON(object: any): ProtoPetExtraAbilityType {

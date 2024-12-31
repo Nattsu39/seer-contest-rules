@@ -46,9 +46,9 @@ message QuanxiaoMintmarkInfo {
 
 message MintmarkInfo {
   oneof mintmark {
-    SkillMintmarkInfo skill = 1;
-    AbilityMintmarkInfo ability = 2;
-    UniversalMintmarkInfo universal = 3;
-    QuanxiaoMintmarkInfo quanxiao = 4;
+    SkillMintmarkInfo SKILL = 1;
+    AbilityMintmarkInfo ABILITY = 2;
+    UniversalMintmarkInfo UNIVERSAL = 3;
+    QuanxiaoMintmarkInfo QUANXIAO = 4;
   };
 }

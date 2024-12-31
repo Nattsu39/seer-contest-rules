@@ -9,14 +9,26 @@ import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 import { ProtoPetInfo } from "../pet/petinfo.pb.js";
 import { ProtoUserSet } from "../user/user_set.pb.js";
 
-export enum ProtoPetMessageTypeEnum {
-  UNSPECIFIED = "UNSPECIFIED",
-  OFFICIAL = "OFFICIAL",
-  CLASSIC = "CLASSIC",
-  TEST = "TEST",
-  TAIWAN = "TAIWAN",
-  CLASSIC_XIN = "CLASSIC_XIN",
-  UNRECOGNIZED = "UNRECOGNIZED",
+export const ProtoPetMessageTypeEnum = {
+  UNSPECIFIED: "UNSPECIFIED",
+  OFFICIAL: "OFFICIAL",
+  CLASSIC: "CLASSIC",
+  TEST: "TEST",
+  TAIWAN: "TAIWAN",
+  CLASSIC_XIN: "CLASSIC_XIN",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export type ProtoPetMessageTypeEnum = typeof ProtoPetMessageTypeEnum[keyof typeof ProtoPetMessageTypeEnum];
+
+export namespace ProtoPetMessageTypeEnum {
+  export type UNSPECIFIED = typeof ProtoPetMessageTypeEnum.UNSPECIFIED;
+  export type OFFICIAL = typeof ProtoPetMessageTypeEnum.OFFICIAL;
+  export type CLASSIC = typeof ProtoPetMessageTypeEnum.CLASSIC;
+  export type TEST = typeof ProtoPetMessageTypeEnum.TEST;
+  export type TAIWAN = typeof ProtoPetMessageTypeEnum.TAIWAN;
+  export type CLASSIC_XIN = typeof ProtoPetMessageTypeEnum.CLASSIC_XIN;
+  export type UNRECOGNIZED = typeof ProtoPetMessageTypeEnum.UNRECOGNIZED;
 }
 
 export function protoPetMessageTypeEnumFromJSON(object: any): ProtoPetMessageTypeEnum {

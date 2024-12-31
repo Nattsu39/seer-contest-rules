@@ -8,13 +8,24 @@
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 import { ProtoPetAbilityValue } from "./ability.pb.js";
 
-export enum ProtoMintmarkType {
-  UNSPECIFIED = "UNSPECIFIED",
-  SKILL = "SKILL",
-  ABILITY = "ABILITY",
-  UNIVERSAL = "UNIVERSAL",
-  QUANXIAO = "QUANXIAO",
-  UNRECOGNIZED = "UNRECOGNIZED",
+export const ProtoMintmarkType = {
+  UNSPECIFIED: "UNSPECIFIED",
+  SKILL: "SKILL",
+  ABILITY: "ABILITY",
+  UNIVERSAL: "UNIVERSAL",
+  QUANXIAO: "QUANXIAO",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export type ProtoMintmarkType = typeof ProtoMintmarkType[keyof typeof ProtoMintmarkType];
+
+export namespace ProtoMintmarkType {
+  export type UNSPECIFIED = typeof ProtoMintmarkType.UNSPECIFIED;
+  export type SKILL = typeof ProtoMintmarkType.SKILL;
+  export type ABILITY = typeof ProtoMintmarkType.ABILITY;
+  export type UNIVERSAL = typeof ProtoMintmarkType.UNIVERSAL;
+  export type QUANXIAO = typeof ProtoMintmarkType.QUANXIAO;
+  export type UNRECOGNIZED = typeof ProtoMintmarkType.UNRECOGNIZED;
 }
 
 export function protoMintmarkTypeFromJSON(object: any): ProtoMintmarkType {
@@ -112,13 +123,13 @@ export interface ProtoQuanxiaoMintmarkInfo {
 export interface ProtoMintmarkInfo {
   mintmark?:
     | //
-    { $case: "skill"; value: ProtoSkillMintmarkInfo }
+    { $case: "SKILL"; value: ProtoSkillMintmarkInfo }
     | //
-    { $case: "ability"; value: ProtoAbilityMintmarkInfo }
+    { $case: "ABILITY"; value: ProtoAbilityMintmarkInfo }
     | //
-    { $case: "universal"; value: ProtoUniversalMintmarkInfo }
+    { $case: "UNIVERSAL"; value: ProtoUniversalMintmarkInfo }
     | //
-    { $case: "quanxiao"; value: ProtoQuanxiaoMintmarkInfo }
+    { $case: "QUANXIAO"; value: ProtoQuanxiaoMintmarkInfo }
     | undefined;
 }
 
@@ -627,16 +638,16 @@ function createBaseProtoMintmarkInfo(): ProtoMintmarkInfo {
 export const ProtoMintmarkInfo: MessageFns<ProtoMintmarkInfo> = {
   encode(message: ProtoMintmarkInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     switch (message.mintmark?.$case) {
-      case "skill":
+      case "SKILL":
         ProtoSkillMintmarkInfo.encode(message.mintmark.value, writer.uint32(10).fork()).join();
         break;
-      case "ability":
+      case "ABILITY":
         ProtoAbilityMintmarkInfo.encode(message.mintmark.value, writer.uint32(18).fork()).join();
         break;
-      case "universal":
+      case "UNIVERSAL":
         ProtoUniversalMintmarkInfo.encode(message.mintmark.value, writer.uint32(26).fork()).join();
         break;
-      case "quanxiao":
+      case "QUANXIAO":
         ProtoQuanxiaoMintmarkInfo.encode(message.mintmark.value, writer.uint32(34).fork()).join();
         break;
     }
@@ -655,7 +666,7 @@ export const ProtoMintmarkInfo: MessageFns<ProtoMintmarkInfo> = {
             break;
           }
 
-          message.mintmark = { $case: "skill", value: ProtoSkillMintmarkInfo.decode(reader, reader.uint32()) };
+          message.mintmark = { $case: "SKILL", value: ProtoSkillMintmarkInfo.decode(reader, reader.uint32()) };
           continue;
         }
         case 2: {
@@ -663,7 +674,7 @@ export const ProtoMintmarkInfo: MessageFns<ProtoMintmarkInfo> = {
             break;
           }
 
-          message.mintmark = { $case: "ability", value: ProtoAbilityMintmarkInfo.decode(reader, reader.uint32()) };
+          message.mintmark = { $case: "ABILITY", value: ProtoAbilityMintmarkInfo.decode(reader, reader.uint32()) };
           continue;
         }
         case 3: {
@@ -671,7 +682,7 @@ export const ProtoMintmarkInfo: MessageFns<ProtoMintmarkInfo> = {
             break;
           }
 
-          message.mintmark = { $case: "universal", value: ProtoUniversalMintmarkInfo.decode(reader, reader.uint32()) };
+          message.mintmark = { $case: "UNIVERSAL", value: ProtoUniversalMintmarkInfo.decode(reader, reader.uint32()) };
           continue;
         }
         case 4: {
@@ -679,7 +690,7 @@ export const ProtoMintmarkInfo: MessageFns<ProtoMintmarkInfo> = {
             break;
           }
 
-          message.mintmark = { $case: "quanxiao", value: ProtoQuanxiaoMintmarkInfo.decode(reader, reader.uint32()) };
+          message.mintmark = { $case: "QUANXIAO", value: ProtoQuanxiaoMintmarkInfo.decode(reader, reader.uint32()) };
           continue;
         }
       }
@@ -693,31 +704,31 @@ export const ProtoMintmarkInfo: MessageFns<ProtoMintmarkInfo> = {
 
   fromJSON(object: any): ProtoMintmarkInfo {
     return {
-      mintmark: isSet(object.skill)
-        ? { $case: "skill", value: ProtoSkillMintmarkInfo.fromJSON(object.skill) }
-        : isSet(object.ability)
-        ? { $case: "ability", value: ProtoAbilityMintmarkInfo.fromJSON(object.ability) }
-        : isSet(object.universal)
-        ? { $case: "universal", value: ProtoUniversalMintmarkInfo.fromJSON(object.universal) }
-        : isSet(object.quanxiao)
-        ? { $case: "quanxiao", value: ProtoQuanxiaoMintmarkInfo.fromJSON(object.quanxiao) }
+      mintmark: isSet(object.SKILL)
+        ? { $case: "SKILL", value: ProtoSkillMintmarkInfo.fromJSON(object.SKILL) }
+        : isSet(object.ABILITY)
+        ? { $case: "ABILITY", value: ProtoAbilityMintmarkInfo.fromJSON(object.ABILITY) }
+        : isSet(object.UNIVERSAL)
+        ? { $case: "UNIVERSAL", value: ProtoUniversalMintmarkInfo.fromJSON(object.UNIVERSAL) }
+        : isSet(object.QUANXIAO)
+        ? { $case: "QUANXIAO", value: ProtoQuanxiaoMintmarkInfo.fromJSON(object.QUANXIAO) }
         : undefined,
     };
   },
 
   toJSON(message: ProtoMintmarkInfo): unknown {
     const obj: any = {};
-    if (message.mintmark?.$case === "skill") {
-      obj.skill = ProtoSkillMintmarkInfo.toJSON(message.mintmark.value);
+    if (message.mintmark?.$case === "SKILL") {
+      obj.SKILL = ProtoSkillMintmarkInfo.toJSON(message.mintmark.value);
     }
-    if (message.mintmark?.$case === "ability") {
-      obj.ability = ProtoAbilityMintmarkInfo.toJSON(message.mintmark.value);
+    if (message.mintmark?.$case === "ABILITY") {
+      obj.ABILITY = ProtoAbilityMintmarkInfo.toJSON(message.mintmark.value);
     }
-    if (message.mintmark?.$case === "universal") {
-      obj.universal = ProtoUniversalMintmarkInfo.toJSON(message.mintmark.value);
+    if (message.mintmark?.$case === "UNIVERSAL") {
+      obj.UNIVERSAL = ProtoUniversalMintmarkInfo.toJSON(message.mintmark.value);
     }
-    if (message.mintmark?.$case === "quanxiao") {
-      obj.quanxiao = ProtoQuanxiaoMintmarkInfo.toJSON(message.mintmark.value);
+    if (message.mintmark?.$case === "QUANXIAO") {
+      obj.QUANXIAO = ProtoQuanxiaoMintmarkInfo.toJSON(message.mintmark.value);
     }
     return obj;
   },
@@ -727,23 +738,23 @@ export const ProtoMintmarkInfo: MessageFns<ProtoMintmarkInfo> = {
   },
   fromPartial<I extends Exact<DeepPartial<ProtoMintmarkInfo>, I>>(object: I): ProtoMintmarkInfo {
     const message = createBaseProtoMintmarkInfo();
-    if (object.mintmark?.$case === "skill" && object.mintmark?.value !== undefined && object.mintmark?.value !== null) {
-      message.mintmark = { $case: "skill", value: ProtoSkillMintmarkInfo.fromPartial(object.mintmark.value) };
+    if (object.mintmark?.$case === "SKILL" && object.mintmark?.value !== undefined && object.mintmark?.value !== null) {
+      message.mintmark = { $case: "SKILL", value: ProtoSkillMintmarkInfo.fromPartial(object.mintmark.value) };
     }
     if (
-      object.mintmark?.$case === "ability" && object.mintmark?.value !== undefined && object.mintmark?.value !== null
+      object.mintmark?.$case === "ABILITY" && object.mintmark?.value !== undefined && object.mintmark?.value !== null
     ) {
-      message.mintmark = { $case: "ability", value: ProtoAbilityMintmarkInfo.fromPartial(object.mintmark.value) };
+      message.mintmark = { $case: "ABILITY", value: ProtoAbilityMintmarkInfo.fromPartial(object.mintmark.value) };
     }
     if (
-      object.mintmark?.$case === "universal" && object.mintmark?.value !== undefined && object.mintmark?.value !== null
+      object.mintmark?.$case === "UNIVERSAL" && object.mintmark?.value !== undefined && object.mintmark?.value !== null
     ) {
-      message.mintmark = { $case: "universal", value: ProtoUniversalMintmarkInfo.fromPartial(object.mintmark.value) };
+      message.mintmark = { $case: "UNIVERSAL", value: ProtoUniversalMintmarkInfo.fromPartial(object.mintmark.value) };
     }
     if (
-      object.mintmark?.$case === "quanxiao" && object.mintmark?.value !== undefined && object.mintmark?.value !== null
+      object.mintmark?.$case === "QUANXIAO" && object.mintmark?.value !== undefined && object.mintmark?.value !== null
     ) {
-      message.mintmark = { $case: "quanxiao", value: ProtoQuanxiaoMintmarkInfo.fromPartial(object.mintmark.value) };
+      message.mintmark = { $case: "QUANXIAO", value: ProtoQuanxiaoMintmarkInfo.fromPartial(object.mintmark.value) };
     }
     return message;
   },

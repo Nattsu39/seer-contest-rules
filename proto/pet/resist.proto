@@ -11,7 +11,7 @@ message HurtResist {
 
 message StateResistItem {
   int32 stateID = 1;
-  string stateName = 2;
+  optional string stateName = 2;
   int32 percent = 3;
 }
 

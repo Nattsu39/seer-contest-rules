@@ -15,7 +15,7 @@ export interface ProtoHurtResist {
 
 export interface ProtoStateResistItem {
   stateID: number;
-  stateName: string;
+  stateName?: string | undefined;
   percent: number;
 }
 
@@ -118,7 +118,7 @@ export const ProtoHurtResist: MessageFns<ProtoHurtResist> = {
 };
 
 function createBaseProtoStateResistItem(): ProtoStateResistItem {
-  return { stateID: 0, stateName: "", percent: 0 };
+  return { stateID: 0, stateName: undefined, percent: 0 };
 }
 
 export const ProtoStateResistItem: MessageFns<ProtoStateResistItem> = {
@@ -126,7 +126,7 @@ export const ProtoStateResistItem: MessageFns<ProtoStateResistItem> = {
     if (message.stateID !== 0) {
       writer.uint32(8).int32(message.stateID);
     }
-    if (message.stateName !== "") {
+    if (message.stateName !== undefined) {
       writer.uint32(18).string(message.stateName);
     }
     if (message.percent !== 0) {
@@ -178,7 +178,7 @@ export const ProtoStateResistItem: MessageFns<ProtoStateResistItem> = {
   fromJSON(object: any): ProtoStateResistItem {
     return {
       stateID: isSet(object.stateID) ? globalThis.Number(object.stateID) : 0,
-      stateName: isSet(object.stateName) ? globalThis.String(object.stateName) : "",
+      stateName: isSet(object.stateName) ? globalThis.String(object.stateName) : undefined,
       percent: isSet(object.percent) ? globalThis.Number(object.percent) : 0,
     };
   },
@@ -188,7 +188,7 @@ export const ProtoStateResistItem: MessageFns<ProtoStateResistItem> = {
     if (message.stateID !== 0) {
       obj.stateID = Math.round(message.stateID);
     }
-    if (message.stateName !== "") {
+    if (message.stateName !== undefined) {
       obj.stateName = message.stateName;
     }
     if (message.percent !== 0) {
@@ -203,7 +203,7 @@ export const ProtoStateResistItem: MessageFns<ProtoStateResistItem> = {
   fromPartial<I extends Exact<DeepPartial<ProtoStateResistItem>, I>>(object: I): ProtoStateResistItem {
     const message = createBaseProtoStateResistItem();
     message.stateID = object.stateID ?? 0;
-    message.stateName = object.stateName ?? "";
+    message.stateName = object.stateName ?? undefined;
     message.percent = object.percent ?? 0;
     return message;
   },
