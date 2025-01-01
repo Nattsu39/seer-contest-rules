@@ -12,11 +12,11 @@
     "./*": {
       "types": "./build/*.d.ts",
       "import": "./build/*"
-    },
-    "./proto": "./build/proto/index.js"
+    }
   },
   "files": [
-    "build",
+    "./build/**/*",
+    "README*.md",
     "LICENSE"
   ],
   "devDependencies": {
@@ -52,7 +52,16 @@
     "preversion": "npm run build && npm run test",
     "version": "npm run build"
   },
+  "author": "Nattsu39 <nattsu39@outlook.com>",
   "license": "Apache-2.0",
+  "homepage": "https://github.com/Nattsu39/seer-interfaces",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nattsu39/seer-interfaces.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Nattsu39/seer-interfaces/issues"
+  },
   "volta": {
     "node": "20.17.0"
   }
