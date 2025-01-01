@@ -45,9 +45,12 @@
     "build": "npm run clean && npm run build:buf && tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
     "build:buf": "buf generate",
     "build:watch": "tsc -w -p tsconfig.json",
+    "test": "vitest run --config vitest.config.js",
     "lint": "eslint .",
     "prettier": "prettier \"{src,examples,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --write",
-    "prettier:check": "prettier \"{src,examples,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --check"
+    "prettier:check": "prettier \"{src,examples,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --check",
+    "preversion": "npm run build && npm run test",
+    "version": "npm run build"
   },
   "license": "Apache-2.0",
   "volta": {
