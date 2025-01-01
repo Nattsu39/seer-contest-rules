@@ -1,6 +1,6 @@
 {
   "name": "seer-interfaces",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "只是定义了一些赛尔号 TS 接口",
   "type": "module",
   "module": "./build/index.js",
